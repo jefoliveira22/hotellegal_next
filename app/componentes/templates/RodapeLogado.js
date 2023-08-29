@@ -1,16 +1,17 @@
 export default function RodapeLogado(props) {
 
     function apagarCookie() {
-        document.cookie = "authGerente ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+        document.cookie = "authGerente ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+        window.location.href="/"
     }
 
     return (
-        <footer className="bg-secondary d-flex p-1 fixarRodapeLogado">
-            <div className="d-flex">
+        <footer className="bg-secondary p-1 d-flex fixarRodapeLogado">
+            <div className="d-flex justify-content-start tamanhoUser pt-1">
                 <h6>Usuário: Jubileu</h6>
             </div>
-            <div className="d-flex">
-                <a onClick={apagarCookie} href="/"><h6>Sair</h6></a>
+            <div className="d-flex justify-content-end tamanhoSair">
+                <button type="button" className="btn btn-danger btn-sm" onClick={apagarCookie}>Sair</button>
             </div>
         </footer>
     )

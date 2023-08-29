@@ -14,6 +14,14 @@ body {
   width: 100%;
 }
 
+.tamanhoUser {
+  width: 20%;
+}
+
+.tamanhoSair {
+  width: 80%;
+}
+
 body.react-confirm-alert-body-element {
   overflow: hidden;
 }
