@@ -8,6 +8,7 @@ import ComprovanteReserva from "../componentes/formularios/Comprovante.js";
 import RESERVA from "../componentes/estados/useReserva.js";
 import ipBackend from "../componentes/IPBackend.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadReserva() {
     
@@ -32,6 +33,7 @@ export default function TelaCadReserva() {
                 <Menu />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <FormREVHospede subtitulo="Informe os dados abaixo" botao="Avançar" exibirReserva={setReserva}/>
+                <RodapeLogado />
             </div>
         );
         
@@ -43,6 +45,7 @@ export default function TelaCadReserva() {
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <FormReserva exibirReserva={setReserva} 
                                  subtitulo="Segundo passo - Escolha sua reserva."/>
+                <RodapeLogado />
             </div>
             );
     }
@@ -56,6 +59,7 @@ export default function TelaCadReserva() {
                 <Menu />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <ComprovanteReserva exibirReserva={setReserva} dados={listaReservas}/>
+                <RodapeLogado />
             </div>
         );
     }

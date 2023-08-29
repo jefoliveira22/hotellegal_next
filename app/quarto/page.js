@@ -8,6 +8,7 @@ import ipBackend from "../componentes/IPBackend.js";
 import FormATUQuarto from "../componentes/formularios/ATUQuarto.js";
 import FormCADQuarto from "../componentes/formularios/CADQuarto.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadQuarto() {
 
@@ -82,6 +83,7 @@ export default function TelaCadQuarto() {
                     apagarQuartos={prepararRemocao}
                     dadosID={setBuscaID}
                     escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -92,6 +94,7 @@ export default function TelaCadQuarto() {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR QUARTOS" />
                 <FormCADQuarto exibirQuarto={setQuarto} escolheBusca={setBusca}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -102,6 +105,7 @@ export default function TelaCadQuarto() {
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR QUARTOS" />
                 <FormATUQuarto exibirQuarto={setQuarto} listaQuarto={atualizaQuarto} escolheBusca={setBusca}/>
+                <RodapeLogado />
             </div>
         );
     }

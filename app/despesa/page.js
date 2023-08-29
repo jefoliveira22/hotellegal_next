@@ -10,6 +10,7 @@ import TabelaTipoDespesas from "../componentes/tabelas/TabelaTDespesa.js";
 import FormTDespesa from "../componentes/formularios/TiposDespesa.js";
 import ipBackend from "../componentes/IPBackend.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadDespesa() {
     
@@ -121,6 +122,7 @@ export default function TelaCadDespesa() {
                     apagarDespesas={prepararRemocao}
                     dadosID={setBuscaID}
                     escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -131,6 +133,7 @@ export default function TelaCadDespesa() {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR DESPESA" />
                 <FormCADDespesa exibirDespesa={setDespesa} escolheBusca={setBusca}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -141,6 +144,7 @@ export default function TelaCadDespesa() {
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR DESPESA" />
                 <FormATUDespesa exibirDespesa={setDespesa} listaDespesas={atualizaDespesa} escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -151,6 +155,7 @@ export default function TelaCadDespesa() {
                 <Menu/>
                 <Cabecalho titulopagina="CADASTRAR TIPO DE DESPESA"/>
                 <FormTDespesa exibirDespesa={setDespesa} escolheBusca={setBusca}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -165,6 +170,7 @@ export default function TelaCadDespesa() {
                                     escolheBusca={setBusca}
                                     dados={tiposDespesa}
                                     apagarTDespesa={prepararRemocaoTDespesa}/>
+                <RodapeLogado />
             </div>
         );
     }

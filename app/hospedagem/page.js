@@ -7,6 +7,7 @@ import FormCheckout from "../componentes/formularios/Checkout";
 import ipBackend from "../componentes/IPBackend.js";
 import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadHospdedagem() {
 
@@ -49,6 +50,7 @@ export default function TelaCadHospdedagem() {
                 <Menu />
                 <Cabecalho titulopagina="HOSPEDAGENS" />
                 <TabelaHospedagem dados={hospedagem} mudaCheckout={setEstadoHospedagem} dadosCheckout={setCheckout} />
+                <RodapeLogado />
             </div>
         )
     }
@@ -58,6 +60,7 @@ export default function TelaCadHospdedagem() {
                 <Menu />
                 <Cabecalho titulopagina="PAGAMENTO" />
                 <FormCheckout dadosCheckout={checkout} execCheckout={encerrarHospedagem} voltar={setEstadoHospedagem}/>
+                <RodapeLogado />
             </div>
         );
     }

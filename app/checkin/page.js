@@ -6,6 +6,7 @@ import TabelaCheckin from "../componentes/tabelas/TabelaCheckin.js";
 import CHECKIN from "../componentes/estados/useCheckin.js";
 import ipBackend from "../componentes/IPBackend.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadCheckin() {
 
@@ -45,6 +46,7 @@ export default function TelaCadCheckin() {
             <TabelaCheckin dadosCheckin={reservas} 
                         execBaixa={setBaixarReserva} 
                         dadosCOD={setCodPesquisa}/>
+            <RodapeLogado />
         </div>
     )
 }

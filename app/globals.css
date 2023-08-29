@@ -4,6 +4,12 @@ body {
 
 .fixarRodape {
   bottom: 0;
+  position:relative;
+  width: 100%;
+}
+
+.fixarRodapeLogado {
+  bottom: 0;
   position:fixed;
   width: 100%;
 }

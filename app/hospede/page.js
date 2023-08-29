@@ -9,6 +9,7 @@ import FormATUHospede from "../componentes/formularios/ATUHospede.js";
 import ipBackend from "../componentes/IPBackend.js";
 import alertaErro from "../componentes/alertas/Erro.js";
 import confirmaRemocao from "../componentes/alertas/Remocao.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadHospede() {
 
@@ -82,6 +83,7 @@ export default function TelaCadHospede() {
                     apagarHospedes={prepararRemocao}
                     dadosCPF={setBuscaCPF}
                     escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -92,6 +94,7 @@ export default function TelaCadHospede() {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR HOSPEDES" />
                 <FormCADHospede exibirHospede={setHospede} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -102,6 +105,7 @@ export default function TelaCadHospede() {
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR HOSPEDES" />
                 <FormATUHospede exibirHospede={setHospede} listaHospede={atualizaHospede} />
+                <RodapeLogado />
             </div>
         );
     }

@@ -1,18 +1,31 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { Container } from "react-bootstrap"
-import FormLogin from '../formularios/Login';
+import { Container, Button, Card, Form } from "react-bootstrap";
+import LOGIN from '../estados/useLogin.js';
 
 
-export default function HomeSection() {
+export default function HomeSection(props) {
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
     };
+
+    const logincpf = useRef("");
+    const senha = useRef("");
+
+    function validarDados() {
+        if (logincpf.current.value === "jubileu" && senha.current.value === "jubileu123") {
+            document.cookie = "authGerente";
+            props.estadoLogin(LOGIN.logado);
+        }
+        else {
+            props.estadoLogin(LOGIN.deslogado);
+        }
+    }
     return (
-        <Container className='mt-5 d-flex align-itens-center'>
+        <Container className='mt-3 mb-3 d-flex align-itens-center'>
             <Container className='mh-100'>
                 <Carousel activeIndex={index} onSelect={handleSelect}>
                     <Carousel.Item>
@@ -51,7 +64,32 @@ export default function HomeSection() {
                 </Carousel>
             </Container>
             <Container className='w-50'>
-                <FormLogin />
+                <Card className="text-center h-100">
+                    <Container className="position-absolute top-50 start-50 translate-middle">
+                        <Card.Title className="mt-4 mb-1">Faça o login</Card.Title>
+                        <Card.Body>
+                            <Form.Group className="mb-3 d-flex align-items-center">
+                                <Form.Label className="m-auto me-1"><b>Usuário</b></Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    id="Logincpf"
+                                    name="Logincpf"
+                                    ref={logincpf}
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3 d-flex align-items-center">
+                                <Form.Label className="m-auto me-3"><b>Senha</b></Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    id="senha"
+                                    name="senha"
+                                    ref={senha}
+                                />
+                            </Form.Group>
+                            <Button onClick={validarDados} className='mt-3 me-2' variant='outline-primary'>Login</Button>
+                        </Card.Body>
+                    </Container>
+                </Card >
             </Container>
         </Container>
     );

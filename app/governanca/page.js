@@ -12,6 +12,7 @@ import TelaCADATVCamareiro from "../componentes/formularios/ATVCamareiro.js";
 import alertaErro from "../componentes/alertas/Erro.js";
 import confirmaGravação from "../componentes/alertas/Gravacao.js";
 import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaGovernanca(props) {
 
@@ -198,6 +199,7 @@ export default function TelaGovernanca(props) {
                 <Menu />
                 <Cabecalho titulopagina="GOVERNANÇA"/>
                 <TelaCAMHome mudaTela={defineTelaBusca}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -214,6 +216,7 @@ export default function TelaGovernanca(props) {
                                  cpfBusca={setValorBusca}
                                  modoBusca={setBusca}
                                  /> 
+                <RodapeLogado />
             </div>
         );
     }
@@ -229,6 +232,7 @@ export default function TelaGovernanca(props) {
                                     exeRemocao={removerATVCamareiro}
                                     cpfBusca={setValorBusca}
                                     modoBusca={setBuscaATV}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -239,6 +243,7 @@ export default function TelaGovernanca(props) {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR CAMAREIRO"/>
                 <TelaCADCamareiro mudaTela={setEstadoTela} exCad={cadastrarCamareiros}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -249,6 +254,7 @@ export default function TelaGovernanca(props) {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR ATIVIDADE"/>
                 <TelaCADATVCamareiro mudaTela={setEstadoTela} exCadATV={cadastrarATVCamareiros}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -261,6 +267,7 @@ export default function TelaGovernanca(props) {
                 <TelaCADCamareiro mudaTela={setEstadoTela} 
                                   atuCamareiros={atualizarCamareiro}
                                   exAtu={atualizarCamareiros}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -273,6 +280,7 @@ export default function TelaGovernanca(props) {
                 <TelaCADATVCamareiro mudaTela={setEstadoTela} 
                                      atuATVCamareiros={atualizarATVCamareiro}
                                      exAtuATV={atualizarATVCamareiros}/>
+                <RodapeLogado />
             </div>
         );
     }

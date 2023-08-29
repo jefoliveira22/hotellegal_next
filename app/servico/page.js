@@ -11,6 +11,7 @@ import TabelaConsumoServ from "../componentes/tabelas/TabelaConsumoServ.js";
 import FormServico from "../componentes/formularios/Servicos.js";
 import MODOBUCASERV from "../componentes/estados/useModoBuscaServico.js";
 import alertaErro from "../componentes/alertas/Erro.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadServico() {
 
@@ -138,6 +139,7 @@ export default function TelaCadServico() {
                     dadosNome={setBuscaNome}
                     escolheBusca={setBusca}
                     modoBuscar={setModoBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -148,7 +150,7 @@ export default function TelaCadServico() {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR SERVIÇO" />
                 <FormServico exibirServico={setServico} />
-
+                <RodapeLogado />
             </div>
         );
     }
@@ -158,7 +160,7 @@ export default function TelaCadServico() {
             <div>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR SERVIÇO" />
-
+                <RodapeLogado />
             </div>
         );
     }
@@ -175,6 +177,7 @@ export default function TelaCadServico() {
                     dadosNome={setBuscaNome}
                     modoBuscar={setModoBusca}
                     escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -185,6 +188,7 @@ export default function TelaCadServico() {
                 <Menu />
                 <Cabecalho titulopagina="CADASTRAR SERVIÇO DE QUARTO" />
                 <FormCADServico exibirServico={setServico} escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -195,6 +199,7 @@ export default function TelaCadServico() {
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR SERVIÇO DE QUARTO" />
                 <FormATUServico exibirServico={setServico} listaServico={atualizaServico} escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }

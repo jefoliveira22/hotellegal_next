@@ -12,6 +12,7 @@ import FormCADProduto from "../componentes/formularios/Produto.js";
 import TabelaProdutos from "../componentes/tabelas/TabelaProdutos.js";
 import alertaErro from "../componentes/alertas/Erro.js";
 import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
+import RodapeLogado from "../componentes/templates/RodapeLogado.js";
 
 export default function TelaCadConsumo() {
 
@@ -161,6 +162,7 @@ export default function TelaCadConsumo() {
                     dadosNome={setBuscaNome}
                     escolheBusca={setBusca} 
                     modoBuscar={setModoBusca}/>
+                <RodapeLogado />
             </div>
         );
     }
@@ -172,6 +174,7 @@ export default function TelaCadConsumo() {
                 <Cabecalho titulopagina="CADASTRAR CONSUMO" />
                 <FormCADConsumo exibirConsumo={setConsumo} 
                                 escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -184,6 +187,7 @@ export default function TelaCadConsumo() {
                 <FormATUConsumo exibirConsumo={setConsumo} 
                                 listaConsumo={atualizaConsumo} 
                                 escolheBusca={setBusca} />
+                <RodapeLogado />
             </div>
         );
     }
@@ -194,6 +198,7 @@ export default function TelaCadConsumo() {
                 <Menu/>
                 <Cabecalho titulopagina="CADASTRAR PRODUTO" />
                 <FormCADProduto exibirConsumo={setConsumo}/>
+                <RodapeLogado />
             </div>
         )
     }
@@ -207,6 +212,7 @@ export default function TelaCadConsumo() {
                                 exeAtualizaçãoProduto={atualizarProdutos}
                                 exibirConsumo={setConsumo}
                                 botaoSubmit="Atualizar"/>
+                <RodapeLogado />
             </div>
         )
     }
@@ -223,6 +229,7 @@ export default function TelaCadConsumo() {
                                 dadosNome={setBuscaNome}
                                 escolheBusca={setBusca} 
                                 modoBuscar={setModoBusca}/>
+                <RodapeLogado />
             </div>
         )
     }
