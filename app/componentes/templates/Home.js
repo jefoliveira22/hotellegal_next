@@ -48,13 +48,6 @@ export default function HomeSection(props) {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-        /*if (logincpf.current.value === "jubileu" && senha.current.value === "jubileu123") {
-            document.cookie = "authGerente";
-            props.estadoLogin(LOGIN.logado);
-        }
-        else {
-            props.estadoLogin(LOGIN.deslogado);
-        }*/
     }
     return (
         <Container className='mt-3 mb-3 d-flex align-itens-center'>
