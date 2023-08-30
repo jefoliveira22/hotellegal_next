@@ -1,7 +1,7 @@
 export default function RodapeLogado(props) {
 
     function apagarCookie() {
-        document.cookie = "authGerente ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "hotelLegal=authGerente ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
         window.location.href="/"
     }
 

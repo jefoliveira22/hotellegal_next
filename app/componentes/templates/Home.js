@@ -5,6 +5,7 @@ import { Container, Button, Card, Form } from "react-bootstrap";
 import LOGIN from '../estados/useLogin.js';
 import alertaErro from '../alertas/Erro.js';
 import ipBackend from '../IPBackend.js';
+import PERMISSAO from '../estados/usePermissao.js';
 
 
 export default function HomeSection(props) {
@@ -26,24 +27,29 @@ export default function HomeSection(props) {
             }).then((dados) => {
                 if (dados[0].usuario === logincpf.current.value && dados[0].senha === senha.current.value) {
                     if (dados[0].tipo === "gerente") {
-                        document.cookie = "authGerente";
+                        document.cookie = "hotelLegal=authGerente";
                         props.estadoLogin(LOGIN.logado);
+                        props.estadoPermissao(PERMISSAO.gerente)
                     }
                     else if (dados[0].tipo === "atendente") {
-                        document.cookie = "authAtendente";
+                        document.cookie = "hotelLegal=authAtendente";
                         props.estadoLogin(LOGIN.logado);
+                        props.estadoPermissao(PERMISSAO.atendente)
                     }
                     else if (dados[0].tipo === "auxiliar") {
-                        document.cookie = "authAuxiliar";
+                        document.cookie = "hotelLegal=authAuxiliar";
                         props.estadoLogin(LOGIN.logado);
+                        props.estadoPermissao(PERMISSAO.auxiliar)
                     }
                     else if (dados[0].tipo === "hospede") {
-                        document.cookie = "authHospede";
+                        document.cookie = "hotelLegal=authHospede";
                         props.estadoLogin(LOGIN.logado);
+                        props.estadoPermissao(PERMISSAO.hospede)
                     }
                 }
                 else {
                     props.estadoLogin(LOGIN.deslogado);
+                    props.estadoPermissao(PERMISSAO.noaccess)
                 }
             }).catch((erro) => {
                 alertaErro(erro);
