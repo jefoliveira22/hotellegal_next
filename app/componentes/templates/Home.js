@@ -3,6 +3,8 @@ import React, { useState, useRef } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { Container, Button, Card, Form } from "react-bootstrap";
 import LOGIN from '../estados/useLogin.js';
+import alertaErro from '../alertas/Erro.js';
+import ipBackend from '../IPBackend.js';
 
 
 export default function HomeSection(props) {
@@ -16,13 +18,43 @@ export default function HomeSection(props) {
     const senha = useRef("");
 
     function validarDados() {
-        if (logincpf.current.value === "jubileu" && senha.current.value === "jubileu123") {
+        fetch(ipBackend + 'login/' + logincpf.current.value,
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                if (dados[0].usuario === logincpf.current.value && dados[0].senha === senha.current.value) {
+                    if (dados[0].tipo === "gerente") {
+                        document.cookie = "authGerente";
+                        props.estadoLogin(LOGIN.logado);
+                    }
+                    else if (dados[0].tipo === "atendente") {
+                        document.cookie = "authAtendente";
+                        props.estadoLogin(LOGIN.logado);
+                    }
+                    else if (dados[0].tipo === "auxiliar") {
+                        document.cookie = "authAuxiliar";
+                        props.estadoLogin(LOGIN.logado);
+                    }
+                    else if (dados[0].tipo === "hospede") {
+                        document.cookie = "authHospede";
+                        props.estadoLogin(LOGIN.logado);
+                    }
+                }
+                else {
+                    props.estadoLogin(LOGIN.deslogado);
+                }
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+        /*if (logincpf.current.value === "jubileu" && senha.current.value === "jubileu123") {
             document.cookie = "authGerente";
             props.estadoLogin(LOGIN.logado);
         }
         else {
             props.estadoLogin(LOGIN.deslogado);
-        }
+        }*/
     }
     return (
         <Container className='mt-3 mb-3 d-flex align-itens-center'>

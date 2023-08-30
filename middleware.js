@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 
+const matcherGerente = {matcher: ['/gerente/:path*']};
+const matcherAtentende = {matcher: ['/atentende/:path*']};
+const matcherHospede = {matcher: ['/hospede/:path*']};
+const matcherAuxilar = {matcher: ['/auxiliar/:path*']};
+
 export default function middleware(request) {
 
     let cookie = request.cookies.get('authGerente')
