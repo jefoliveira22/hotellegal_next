@@ -1,16 +1,16 @@
 "use client"
 import { useEffect, useState } from "react";
-import FormCADDespesa from "../componentes/formularios/CADDespesa.js";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import TabelaDespesas from "../componentes/tabelas/TabelaDespesa.js";
-import DESPESA from "../componentes/estados/useDespesa.js";
-import FormATUDespesa from "../componentes/formularios/ATUDespesa.js";
-import TabelaTipoDespesas from "../componentes/tabelas/TabelaTDespesa.js";
-import FormTDespesa from "../componentes/formularios/TiposDespesa.js";
-import ipBackend from "../componentes/IPBackend.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import FormCADDespesa from "@/app/componentes/formularios/CADDespesa.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import TabelaDespesas from "@/app/componentes/tabelas/TabelaDespesa.js";
+import DESPESA from "@/app/componentes/estados/useDespesa.js";
+import FormATUDespesa from "@/app/componentes/formularios/ATUDespesa.js";
+import TabelaTipoDespesas from "@/app/componentes/tabelas/TabelaTDespesa.js";
+import FormTDespesa from "@/app/componentes/formularios/TiposDespesa";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado";
 
 export default function TelaCadDespesa() {
     

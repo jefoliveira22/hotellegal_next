@@ -1,14 +1,14 @@
 "use client"
 import { useEffect, useState } from "react";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import TabelaQuartos from "../componentes/tabelas/TabelaQuarto.js";
-import QUARTO from "../componentes/estados/useQuarto.js";
-import ipBackend from "../componentes/IPBackend.js";
-import FormATUQuarto from "../componentes/formularios/ATUQuarto.js";
-import FormCADQuarto from "../componentes/formularios/CADQuarto.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import TabelaQuartos from "@/app/componentes/tabelas/TabelaQuarto.js";
+import QUARTO from "@/app/componentes/estados/useQuarto.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import FormATUQuarto from "@/app/componentes/formularios/ATUQuarto.js";
+import FormCADQuarto from "@/app/componentes/formularios/CADQuarto.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
 export default function TelaCadQuarto() {
 

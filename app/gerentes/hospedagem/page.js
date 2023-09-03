@@ -1,13 +1,13 @@
 "use client"
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import TabelaHospedagem from "../componentes/tabelas/TabelaHospedagem.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import TabelaHospedagem from "@/app/componentes/tabelas/TabelaHospedagem.js";
 import { useState } from "react";
-import FormCheckout from "../componentes/formularios/Checkout";
-import ipBackend from "../componentes/IPBackend.js";
-import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import FormCheckout from "@/app/componentes/formularios/Checkout";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
 export default function TelaCadHospdedagem() {
 

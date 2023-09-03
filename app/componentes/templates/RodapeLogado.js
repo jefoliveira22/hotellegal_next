@@ -1,8 +1,22 @@
-export default function RodapeLogado(props) {
+export default function RodapeLogado() {
 
     function apagarCookie() {
-        document.cookie = "hotelLegal=authGerente ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-        window.location.href="/"
+        if (document.cookie === "hotelLegal=authGerente") {
+            document.cookie = "hotelLegal=authGerente; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location.href="/"
+        }
+        else if (document.cookie === "hotelLegal=authAuxiliar") {
+            document.cookie = "hotelLegal=authAuxiliar; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location.href="/"
+        }
+        else if (document.cookie === "hotelLegal=authHospede") {
+            document.cookie = "hotelLegal=authHospede; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location.href="/"
+        }
+        else if (document.cookie === "hotelLegal=authAtendente") {
+            document.cookie = "hotelLegal=authAtendente; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            window.location.href="/"
+        }
     }
 
     return (

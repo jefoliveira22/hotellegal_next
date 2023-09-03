@@ -16,33 +16,33 @@ export default function Home() {
     return (
       <main>
         <Cabecalho />
-        <HomeSection estadoLogin={setLogin} estadoPermissao={setPermissao}/>
+        <HomeSection estadoLogin={setLogin} estadoPermissao={setPermissao} />
         <Rodape />
       </main>
     )
   }
-  
+
   else if (Login === LOGIN.logado && Permissao === PERMISSAO.gerente) {
     return (
-        window.location.href="/hospede"
+      window.location.href = "/gerentes"
     )
   }
 
   else if (Login === LOGIN.logado && Permissao === PERMISSAO.atendente) {
     return (
-        window.location.href="/hospede"
+      window.location.href = "/atendentes"
     )
   }
 
   else if (Login === LOGIN.logado && Permissao === PERMISSAO.auxiliar) {
     return (
-        window.location.href="/governanca"
+      window.location.href = "/auxiliares"
     )
   }
 
   else if (Login === LOGIN.logado && Permissao === PERMISSAO.hospede) {
     return (
-        window.location.href="/reserva"
+      window.location.href = "/hospedes"
     )
   }
 }

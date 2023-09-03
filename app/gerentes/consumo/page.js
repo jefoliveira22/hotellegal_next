@@ -1,18 +1,18 @@
 "use client"
 import { useEffect, useState } from "react";
-import FormCADConsumo from "../componentes/formularios/CADConsumo.js";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import TabelaConsumos from "../componentes/tabelas/TabelaConsumo.js";
-import CONSUMO from "../componentes/estados/useConsumo.js";
-import MODOBUSCACONS from "../componentes/estados/useModoBuscaConsumo.js";
-import FormATUConsumo from "../componentes/formularios/ATUConsumo.js";
-import ipBackend from "../componentes/IPBackend.js";
-import FormCADProduto from "../componentes/formularios/Produto.js";
-import TabelaProdutos from "../componentes/tabelas/TabelaProdutos.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import FormCADConsumo from "@/app/componentes/formularios/CADConsumo.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import TabelaConsumos from "@/app/componentes/tabelas/TabelaConsumo.js";
+import CONSUMO from "@/app/componentes/estados/useConsumo.js";
+import MODOBUSCACONS from "@/app/componentes/estados/useModoBuscaConsumo.js";
+import FormATUConsumo from "@/app/componentes/formularios/ATUConsumo.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import FormCADProduto from "@/app/componentes/formularios/Produto.js";
+import TabelaProdutos from "@/app/componentes/tabelas/TabelaProdutos.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado";
 
 export default function TelaCadConsumo() {
 

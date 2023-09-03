@@ -1,15 +1,15 @@
 "use client"
 import { useEffect, useState } from "react";
-import FormCADHospede from "../componentes/formularios/CADHospede.js";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import TabelaHospedes from "../componentes/tabelas/TabelaHospede.js";
-import HOSPEDE from "../componentes/estados/useHospede.js";
-import FormATUHospede from "../componentes/formularios/ATUHospede.js";
-import ipBackend from "../componentes/IPBackend.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import confirmaRemocao from "../componentes/alertas/Remocao.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import FormCADHospede from "@/app/componentes/formularios/CADHospede.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import TabelaHospedes from "@/app/componentes/tabelas/TabelaHospede.js";
+import HOSPEDE from "@/app/componentes/estados/useHospede.js";
+import FormATUHospede from "@/app/componentes/formularios/ATUHospede.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import confirmaRemocao from "@/app/componentes/alertas/Remocao.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
 export default function TelaCadHospede() {
 

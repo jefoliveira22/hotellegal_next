@@ -1,14 +1,14 @@
 "use client"
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import Menu from "../componentes/templates/Menu.js";
-import FormREVHospede from "../componentes/formularios/REVHospede.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import FormREVHospede from "@/app/componentes/formularios/REVHospede.js";
 import { useState } from "react";
-import FormReserva from "../componentes/formularios/Reserva.js";
-import ComprovanteReserva from "../componentes/formularios/Comprovante.js";
-import RESERVA from "../componentes/estados/useReserva.js";
-import ipBackend from "../componentes/IPBackend.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import FormReserva from "@/app/componentes/formularios/Reserva.js";
+import ComprovanteReserva from "@/app/componentes/formularios/Comprovante.js";
+import RESERVA from "@/app/componentes/estados/useReserva.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
 export default function TelaCadReserva() {
     

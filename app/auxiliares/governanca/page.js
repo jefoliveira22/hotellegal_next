@@ -1,18 +1,18 @@
 "use client"
-import Menu from "../componentes/templates/Menu.js";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import CAMAREIRO from "../componentes/estados/useCamareiro.js";
+import MenuAuxServico from "@/app/componentes/templates/MenuAuxServico.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import CAMAREIRO from "@/app/componentes/estados/useCamareiro.js";
 import { useState, useEffect } from "react";
-import TelaCAMHome from "../componentes/formularios/CAMHome.js";
-import TabelaCamareiro from "../componentes/tabelas/TabelaCamareiro.js";
-import ipBackend from "../componentes/IPBackend.js";
-import TelaCADCamareiro from "../componentes/formularios/Camareiro.js";
-import TabelaATVCamareiro from "../componentes/tabelas/TabelaAtvCamareiro.js";
-import TelaCADATVCamareiro from "../componentes/formularios/ATVCamareiro.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import confirmaGravação from "../componentes/alertas/Gravacao.js";
-import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import TelaCAMHome from "@/app/componentes/formularios/CAMHome.js";
+import TabelaCamareiro from "@/app/componentes/tabelas/TabelaCamareiro.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import TelaCADCamareiro from "@/app/componentes/formularios/Camareiro.js";
+import TabelaATVCamareiro from "@/app/componentes/tabelas/TabelaAtvCamareiro.js";
+import TelaCADATVCamareiro from "@/app/componentes/formularios/ATVCamareiro.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import confirmaGravação from "@/app/componentes/alertas/Gravacao.js";
+import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado";
 
 export default function TelaGovernanca(props) {
 
@@ -196,7 +196,7 @@ export default function TelaGovernanca(props) {
     if (estadoTela === CAMAREIRO.home) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="GOVERNANÇA"/>
                 <TelaCAMHome mudaTela={defineTelaBusca}/>
                 <RodapeLogado />
@@ -207,7 +207,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.listacam) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="CAMAREIROS CADASTRADOS"/>
                 <TabelaCamareiro mudaTela={setEstadoTela} 
                                  listaCamareiros={camareiros}
@@ -224,7 +224,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.listaatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATIVIDADES CADASTRADAS"/>
                 <TabelaATVCamareiro mudaTela={setEstadoTela}
                                     listaAtvCamareiros={atvCamareiros}
@@ -240,7 +240,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.cadastracam) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="CADASTRAR CAMAREIRO"/>
                 <TelaCADCamareiro mudaTela={setEstadoTela} exCad={cadastrarCamareiros}/>
                 <RodapeLogado />
@@ -251,7 +251,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.cadastraatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="CADASTRAR ATIVIDADE"/>
                 <TelaCADATVCamareiro mudaTela={setEstadoTela} exCadATV={cadastrarATVCamareiros}/>
                 <RodapeLogado />
@@ -262,7 +262,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.atualizacam) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATUALIZAR CAMAREIRO"/>
                 <TelaCADCamareiro mudaTela={setEstadoTela} 
                                   atuCamareiros={atualizarCamareiro}
@@ -275,7 +275,7 @@ export default function TelaGovernanca(props) {
     else if (estadoTela === CAMAREIRO.atualizaatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATUALIZAR ATIVIDADE"/>
                 <TelaCADATVCamareiro mudaTela={setEstadoTela} 
                                      atuATVCamareiros={atualizarATVCamareiro}

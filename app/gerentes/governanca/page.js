@@ -1,18 +1,18 @@
 "use client"
-import Menu from "../componentes/templates/Menu.js";
-import Cabecalho from "../componentes/templates/Cabecalho.js";
-import CAMAREIRO from "../componentes/estados/useCamareiro.js";
+import Menu from "@/app/componentes/templates/Menu.js";
+import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
+import CAMAREIRO from "@/app/componentes/estados/useCamareiro.js";
 import { useState, useEffect } from "react";
-import TelaCAMHome from "../componentes/formularios/CAMHome.js";
-import TabelaCamareiro from "../componentes/tabelas/TabelaCamareiro.js";
-import ipBackend from "../componentes/IPBackend.js";
-import TelaCADCamareiro from "../componentes/formularios/Camareiro.js";
-import TabelaATVCamareiro from "../componentes/tabelas/TabelaAtvCamareiro.js";
-import TelaCADATVCamareiro from "../componentes/formularios/ATVCamareiro.js";
-import alertaErro from "../componentes/alertas/Erro.js";
-import confirmaGravação from "../componentes/alertas/Gravacao.js";
-import confirmaAtualização from "../componentes/alertas/Atualizacao.js";
-import RodapeLogado from "../componentes/templates/RodapeLogado.js";
+import TelaCAMHome from "@/app/componentes/formularios/CAMHome.js";
+import TabelaCamareiro from "@/app/componentes/tabelas/TabelaCamareiro.js";
+import ipBackend from "@/app/componentes/IPBackend.js";
+import TelaCADCamareiro from "@/app/componentes/formularios/Camareiro.js";
+import TabelaATVCamareiro from "@/app/componentes/tabelas/TabelaAtvCamareiro.js";
+import TelaCADATVCamareiro from "@/app/componentes/formularios/ATVCamareiro.js";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
+import confirmaGravação from "@/app/componentes/alertas/Gravacao.js";
+import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
+import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
 export default function TelaGovernanca(props) {
 

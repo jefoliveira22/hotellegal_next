@@ -11,26 +11,22 @@ export default function middleware(request) {
     }
 
     if (request.nextUrl.pathname === "/") {
-        return NextResponse.redirect(new URL('/hospede', request.url))
+        if (cookie.value === "authAtendente") {
+            return NextResponse.redirect(new URL('/atendentes', request.url))
+        }
+        else if (cookie.value === "authAuxiliar") {
+            return NextResponse.redirect(new URL('/auxiliares', request.url))
+        }
+        else if (cookie.value === "authHospede") {
+            return NextResponse.redirect(new URL('/hospedes', request.url))
+        }
+        else if (cookie.value === "authGerente") {
+            return NextResponse.redirect(new URL('/gerentes', request.url))
+        } 
     }
 
-    if (request.nextUrl.pathname === "/hospede" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
-            return NextResponse.next()
-        }
-        else {
-            return NextResponse.redirect(new URL('/noacess', request.url))
-        }
-    }
-
-    if (request.nextUrl.pathname === "/checkin" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
+    if (request.nextUrl.pathname === "/atendentes" ) {
+        if (cookie.value === 'authAtendente') {
             return NextResponse.next()
         }
         else {
@@ -38,11 +34,8 @@ export default function middleware(request) {
         }
     }
 
-    if (request.nextUrl.pathname === "/consumo" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
+    if (request.nextUrl.pathname === "/auxiliares" ) {
+        if (cookie.value === 'authAuxiliar') {
             return NextResponse.next()
         }
         else {
@@ -50,20 +43,8 @@ export default function middleware(request) {
         }
     }
 
-    if (request.nextUrl.pathname === "/despesa" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else {
-            return NextResponse.redirect(new URL('/noacess', request.url))
-        }
-    }
-    
-    if (request.nextUrl.pathname === "/governança" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAuxiliar') {
+    if (request.nextUrl.pathname === "/hospedes" ) {
+        if (cookie.value === 'authHospede') {
             return NextResponse.next()
         }
         else {
@@ -71,56 +52,8 @@ export default function middleware(request) {
         }
     }
 
-    if (request.nextUrl.pathname === "/hospedagem" ) {
+    if (request.nextUrl.pathname === "/gerentes" ) {
         if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
-            return NextResponse.next()
-        }
-        else {
-            return NextResponse.redirect(new URL('/noacess', request.url))
-        }
-    }
-
-    if (request.nextUrl.pathname === "/quarto" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAuxiliar') {
-            return NextResponse.next()
-        }
-        else {
-            return NextResponse.redirect(new URL('/noacess', request.url))
-        }
-    }
-
-    if (request.nextUrl.pathname === "/reserva" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authHospede') {
-            return NextResponse.next()
-        }
-        else {
-            return NextResponse.redirect(new URL('/noacess', request.url))
-        }
-    }
-    
-    if (request.nextUrl.pathname === "/servico" ) {
-        if (cookie.value === 'authGerente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAtendente') {
-            return NextResponse.next()
-        }
-        else if (cookie.value === 'authAuxiliar') {
             return NextResponse.next()
         }
         else {
@@ -130,6 +63,5 @@ export default function middleware(request) {
 };
 
 export const config = {
-    matcher: ['/', '/hospede', '/checkin', '/consumo', '/despesa', '/governanca', '/hospedagem', '/quarto', '/reserva', 
-    '/servico'],
+    matcher: ['/', '/atendentes', '/auxiliares', '/hospedes', '/gerentes'],
 }
