@@ -10,7 +10,7 @@ export default function middleware(request) {
         return NextResponse.redirect(new URL('/noacess', request.url))
     }
 
-    if (request.nextUrl.pathname === "/") {
+    /*if (request.nextUrl.pathname === "/") {
         if (cookie.value === "authAtendente") {
             return NextResponse.redirect(new URL('/atendentes', request.url))
         }
@@ -23,7 +23,7 @@ export default function middleware(request) {
         else if (cookie.value === "authGerente") {
             return NextResponse.redirect(new URL('/gerentes', request.url))
         } 
-    }
+    }*/
 
     if (request.nextUrl.pathname === "/atendentes" ) {
         if (cookie.value === 'authAtendente') {
