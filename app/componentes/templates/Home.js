@@ -29,22 +29,22 @@ export default function HomeSection(props) {
                     if (dados[0].tipo === "gerente") {
                         document.cookie = "hotelLegal=authGerente";
                         props.estadoLogin(LOGIN.logado);
-                        props.estadoPermissao(PERMISSAO.gerente)
+                        props.estadoPermissao(PERMISSAO.gerente);
                     }
                     else if (dados[0].tipo === "atendente") {
                         document.cookie = "hotelLegal=authAtendente";
                         props.estadoLogin(LOGIN.logado);
-                        props.estadoPermissao(PERMISSAO.atendente)
+                        props.estadoPermissao(PERMISSAO.atendente);
                     }
                     else if (dados[0].tipo === "auxiliar") {
                         document.cookie = "hotelLegal=authAuxiliar";
                         props.estadoLogin(LOGIN.logado);
-                        props.estadoPermissao(PERMISSAO.auxiliar)
+                        props.estadoPermissao(PERMISSAO.auxiliar);
                     }
                     else if (dados[0].tipo === "hospede") {
                         document.cookie = "hotelLegal=authHospede";
                         props.estadoLogin(LOGIN.logado);
-                        props.estadoPermissao(PERMISSAO.hospede)
+                        props.estadoPermissao(PERMISSAO.hospede);
                     }
                 }
                 else {

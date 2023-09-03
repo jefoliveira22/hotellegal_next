@@ -16,7 +16,7 @@ export default function Home() {
     return (
       <main>
         <Cabecalho />
-        <HomeSection estadoLogin={setLogin} estadoPermissao={setPermissao} />
+        <HomeSection estadoLogin={setLogin} estadoPermissao={setPermissao}/>
         <Rodape />
       </main>
     )
