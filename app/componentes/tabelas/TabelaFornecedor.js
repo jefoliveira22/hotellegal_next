@@ -4,7 +4,7 @@ import { Form, Navbar, Nav } from "react-bootstrap";
 import { useRef } from "react";
 import USUARIOS from "../estados/useUsuarios";
 
-export default function TabelaUsuarios(props) {
+export default function TabelaForncedores(props) {
 
     function passaCPF() {
         const dadoscpf = pesquisa.current.value
@@ -14,12 +14,12 @@ export default function TabelaUsuarios(props) {
 
     const pesquisa = useRef("")
 
-    const usuarios = [{ "id": "1", "nome": "Jeferson da Silva Oliveira", "tipo": "Gerente", "email": "jsoliveira@unoeste.edu.br" },
-    { "id": "2", "nome": "Hugo Botter Zarpelão", "tipo": "Auxiliar", "email": "hugo@unoeste.br" },
-    { "id": "3", "nome": "Alan Denis Recupero", "tipo": "Atendente", "email": "alan.recupero@gmail.com" },
-    { "id": "4", "nome": "Carlos Menezes dos Santos", "tipo": "Camareiro", "email": "menezes.carlosms@gmail.com" }];
+    const usuarios = [{ "id": "1", "nome": "Atacadão SA", "cnpj": "123.123.123/0001-11", "email": "atacadaosup@atacadao.com" },
+    { "id": "2", "nome": "Leroy Merlin SA", "cnpj": "123.123.123/0001-11", "email": "leroymerlin@merlin.com" },
+    { "id": "3", "nome": "Via Varejo SA", "cnpj": "123.123.123/0001-11", "email": "via@varejo.com" },
+    { "id": "4", "nome": "Amazon do Brasil SA", "cnpj": "123.123.123/0001-11", "email": "amazon@amazon.com" }];
 
-    function BotãoEstilo(variavel) {
+    /*function BotãoEstilo(variavel) {
         if (variavel === "Gerente") {
             return <Button size="sm" variant="danger">Gerente</Button>
         }
@@ -32,7 +32,7 @@ export default function TabelaUsuarios(props) {
         else if (variavel === "Camareiro") {
             return <Button size="sm" variant="primary">Camareiro</Button>
         }
-    }
+    }*/
 
     return (
         <Container className='mb-5'>
@@ -66,7 +66,7 @@ export default function TabelaUsuarios(props) {
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>CARGO</th>
+                        <th>CNPJ</th>
                         <th>E-MAIL</th>
                         <th></th>
                     </tr>
@@ -78,7 +78,7 @@ export default function TabelaUsuarios(props) {
                                 <tr key={usuario.id}>
                                     <td>{usuario.id}</td>
                                     <td>{usuario.nome}</td>
-                                    <td>{BotãoEstilo(usuario.tipo)}</td>
+                                    <td>{usuario.cnpj}</td>
                                     <td>{usuario.email}</td>
                                     <td>
                                         <Dropdown>
