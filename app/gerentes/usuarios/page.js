@@ -15,6 +15,7 @@ import alertaErro from "@/app/componentes/alertas/Erro";
 import CADFuncionario from "@/app/componentes/formularios/Funcionarios";
 import ipBackend from "@/app/componentes/IPBackend";
 import confirmaGravação from "@/app/componentes/alertas/Gravacao";
+import CADFornecedor from "@/app/componentes/formularios/Fornecedores";
 
 
 export default function GerUsuarios() {
@@ -24,6 +25,7 @@ export default function GerUsuarios() {
     const [Fornecedores, setFornecedores] = useState(FORNECEDORES.listfornecedor); /* ESTADO QUE GERENCIA A OPÇÃO FORNECEDORES (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [Funcionarios, setFuncionarios] = useState(FUNCIONARIOS.listfuncionario); /* ESTADO QUE GERENCIA A OPÇÃO FUNCIONÁRIOS (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [AtuFuncionario, setAtuFuncionario] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
+    const [AtuFornecedor, setAtuFornecedor] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
 
     function cadastrarFuncionario(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM USUÁRIO, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
         fetch(ipBackend + "funcionario", {
@@ -58,6 +60,44 @@ export default function GerUsuarios() {
             setFuncionarios(FUNCIONARIOS.listfuncionario);
         }).catch((erro) => {
             alertaErro(erro);
+            setFuncionarios(FUNCIONARIOS.listfuncionario);
+        });
+    }
+
+    function cadastrarFornecedor(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM FORNECEDOR, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
+        fetch(ipBackend + "fornecedor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((confirmacao) => {
+            confirmaGravação(confirmacao);
+            setFornecedores(FORNECEDORES.listfornecedor);
+        }).catch((erro) => {
+            alertaErro(erro);
+            setFornecedores(FORNECEDORES.listfornecedor);
+        });
+    }
+
+    function prepararAtualizacaoFornecedor(fornecedor) { /* FUNÇÃO QUE ACIONA O CARREGAMENTO DA TELA DE ATUALIZAÇÃO E SALVA OS DADOS DO FUNCIONARIO QUE VAI SER ATUALIZADO */
+        setAtuFornecedor(fornecedor);
+        setFornecedores(FORNECEDORES.atufornecedor);
+    }
+
+    function atualizarFornecedor(dados) { /* FUNÇÃO QUE EXECUTA A ATUALIZAÇÃO DO FORNECEDOR NO BACKEND */
+        fetch(ipBackend + "fornecedor", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            confirmaAtualização(dados);
+            setFornecedores(FORNECEDORES.listfornecedor);
+        }).catch((erro) => {
+            alertaErro(erro);
+            setFornecedores(FORNECEDORES.listfornecedor);
         });
     }
 
@@ -123,7 +163,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR FORNECEDORES" />
-                <TabelaFornecedores mudaTela={setUsuarios}/>
+                <TabelaFornecedores mudaTela={setUsuarios}
+                                    mudaFornecedor={setFornecedores}
+                                    prepAtualizacao={prepararAtualizacaoFornecedor}/>
                 <RodapeLogado />
             </main>
         );
@@ -134,7 +176,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR FORNECEDOR" />
-
+                    <CADFornecedor mudaFornecedor={setFornecedores}
+                                   cadastraForn={cadastrarFornecedor}/>
                 <RodapeLogado />
             </main>
         );
@@ -145,7 +188,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR FORNECEDOR" />
-
+                    <CADFornecedor mudaFornecedor={setFornecedores}
+                                   exeAtualizacao={atualizarFornecedor}
+                                   atualizaFornecedor={AtuFornecedor} />
                 <RodapeLogado />
             </main>
         );
