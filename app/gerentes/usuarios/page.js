@@ -16,6 +16,7 @@ import CADFuncionario from "@/app/componentes/formularios/Funcionarios";
 import ipBackend from "@/app/componentes/IPBackend";
 import confirmaGravação from "@/app/componentes/alertas/Gravacao";
 import CADFornecedor from "@/app/componentes/formularios/Fornecedores";
+import CADCliente from "@/app/componentes/formularios/Clientes";
 
 
 export default function GerUsuarios() {
@@ -25,7 +26,8 @@ export default function GerUsuarios() {
     const [Fornecedores, setFornecedores] = useState(FORNECEDORES.listfornecedor); /* ESTADO QUE GERENCIA A OPÇÃO FORNECEDORES (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [Funcionarios, setFuncionarios] = useState(FUNCIONARIOS.listfuncionario); /* ESTADO QUE GERENCIA A OPÇÃO FUNCIONÁRIOS (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [AtuFuncionario, setAtuFuncionario] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
-    const [AtuFornecedor, setAtuFornecedor] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
+    const [AtuFornecedor, setAtuFornecedor] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FORNECEDOR QUE VAI SER ATUALIZADO */
+    const [AtuCliente, setAtuCliente] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO CLIENTE QUE VAI SER ATUALIZADO */
 
     function cadastrarFuncionario(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM USUÁRIO, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
         fetch(ipBackend + "funcionario", {
@@ -80,7 +82,7 @@ export default function GerUsuarios() {
         });
     }
 
-    function prepararAtualizacaoFornecedor(fornecedor) { /* FUNÇÃO QUE ACIONA O CARREGAMENTO DA TELA DE ATUALIZAÇÃO E SALVA OS DADOS DO FUNCIONARIO QUE VAI SER ATUALIZADO */
+    function prepararAtualizacaoFornecedor(fornecedor) { /* FUNÇÃO QUE ACIONA O CARREGAMENTO DA TELA DE ATUALIZAÇÃO E SALVA OS DADOS DO FORNECEDOR QUE VAI SER ATUALIZADO */
         setAtuFornecedor(fornecedor);
         setFornecedores(FORNECEDORES.atufornecedor);
     }
@@ -98,6 +100,43 @@ export default function GerUsuarios() {
         }).catch((erro) => {
             alertaErro(erro);
             setFornecedores(FORNECEDORES.listfornecedor);
+        });
+    }
+
+    function cadastrarCliente(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM CLIENTE, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
+        fetch(ipBackend + "cliente", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((confirmacao) => {
+            confirmaGravação(confirmacao);
+            setClientes(CLIENTES.listcliente);
+        }).catch((erro) => {
+            alertaErro(erro);
+            setClientes(CLIENTES.listcliente);
+        });
+    }
+
+    function prepararAtualizacaoCliente(cliente) { /* FUNÇÃO QUE ACIONA O CARREGAMENTO DA TELA DE ATUALIZAÇÃO E SALVA OS DADOS DO CLIENTE QUE VAI SER ATUALIZADO */
+        setAtuCliente(cliente);
+        setClientes(CLIENTES.atucliente);
+    }
+
+    function atualizarCliente(dados) { /* FUNÇÃO QUE EXECUTA A ATUALIZAÇÃO DO CLIENTE NO BACKEND */
+        fetch(ipBackend + "cliente", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            confirmaAtualização(dados);
+            setClientes(CLIENTES.listcliente);
+        }).catch((erro) => {
+            alertaErro(erro);
+            setClientes(CLIENTES.listcliente);
         });
     }
 
@@ -203,7 +242,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR CLIENTES" />
-                <TabelaClientes mudaTela={setUsuarios}/>
+                <TabelaClientes mudaTela={setUsuarios}
+                                mudaCliente={setClientes}
+                                prepAtualizacao={prepararAtualizacaoCliente}/>
                 <RodapeLogado />
             </main>
         );
@@ -214,7 +255,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR CLIENTE" />
-
+                    <CADCliente mudaCliente={setClientes}
+                                cadastraCli={cadastrarCliente} />
                 <RodapeLogado />
             </main>
         );
@@ -225,7 +267,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR CLIENTE" />
-
+                    <CADCliente mudaCliente={setClientes}
+                                exeAtualizacao={atualizarCliente}
+                                atualizaCliente={AtuCliente} />
                 <RodapeLogado />
             </main>
         );

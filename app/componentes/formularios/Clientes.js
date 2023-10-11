@@ -5,51 +5,51 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import FORNECEDORES from '../estados/useFornecedores';
+import CLIENTES from '../estados/useClientes';
 
-export default function CADFornecedor(props) {
+export default function CADCliente(props) {
 
     const [formValidado, setFormValidado] = useState(false); /* ESTADO QUE GERENCIA SE O FORMULARIO ESTA VALIDADO OU NÃO */
-    const dadosAtualização = props.atualizaFornecedor
+    const dadosAtualização = props.atualizaCliente
 
     useEffect(() => { /* AO CHAMAR A PAGINA, O USEEFFECT VAI VERIFICAR SE EXISTE DADOS PARA ATUALIZAR, SE SIM VAI PREENCHER OS CAMPOS */
-        if (props.atualizaFornecedor) {
-            nome.current.value = props.atualizaFornecedor.usuario.nome
-            email.current.value = props.atualizaFornecedor.usuario.email
-            nome_empresa.current.value = props.atualizaFornecedor.nome_empresa
-            cnpj.current.value = props.atualizaFornecedor.cnpj
-            tipo_usuario.current.value = props.atualizaFornecedor.usuario.tipo_usuario
-            senha.current.value = props.atualizaFornecedor.usuario.senha
+        if (props.atualizaCliente) {
+            nome.current.value = props.atualizaCliente.usuario.nome
+            email.current.value = props.atualizaCliente.usuario.email
+            endereco.current.value = props.atualizaCliente.endereco
+            telefone.current.value = props.atualizaCliente.telefone
+            tipo_usuario.current.value = props.atualizaCliente.usuario.tipo_usuario
+            senha.current.value = props.atualizaCliente.usuario.senha
         }
     }, []);
 
     const nome = useRef("");  /* USEREF UTILIZADO PARA PEGAR AS INFORMAÇÕES PREENCHIDAS NOS CAMPOS - SEMELHANTE GETELEMENTBYID */
     const email = useRef("");
-    const nome_empresa = useRef("");
-    const cnpj = useRef("");
+    const endereco = useRef("");
+    const telefone = useRef("");
     const tipo_usuario = useRef("");
     const senha = useRef("");
 
     function preparaJSON() {  /* FUNÇÃO QUE MONTA O JSON QUE SERÁ ENVIADO PARA O BACKEND */
         if (dadosAtualização) {
-            const fornecedor = {
-                fornecedor_id: props.atualizaFornecedor.fornecedor_id,
-                nome_empresa: nome_empresa.current.value,
-                cnpj: cnpj.current.value,
+            const cliente = {
+                cliente_id: props.atualizaCliente.cliente_id,
+                endereco: endereco.current.value,
+                telefone: telefone.current.value,
                 usuario: {
-                    usuario_id: props.atualizaFornecedor.usuario.usuario_id,
+                    usuario_id: props.atualizaCliente.usuario.usuario_id,
                     nome: nome.current.value,
                     email: email.current.value,
                     senha: senha.current.value,
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
-            return fornecedor
+            return cliente
         }
         else {
-            const fornecedor = {
-                nome_empresa: nome_empresa.current.value,
-                cnpj: cnpj.current.value,
+            const cliente = {
+                endereco: endereco.current.value,
+                telefone: telefone.current.value,
                 usuario: {
                     nome: nome.current.value,
                     email: email.current.value,
@@ -57,20 +57,20 @@ export default function CADFornecedor(props) {
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
-            return fornecedor
+            return cliente
         }
     }
 
     function manipularSubmissao(evento) {  /* FUNÇÃO QUE MANIPULA A SUBMISSÃO DO FORMULARIO IDENTIFICANDO CAMPOS NÃO PREENCHIDOS */
         const formulario = evento.currentTarget;
         if (formulario.checkValidity()) {
-            if (dadosAtualização) { /* CONDIÇÃO QUE SE OUVER DADOS NA PROPS ATUALIZAFORNECEDOR, EXECUTA A ATUALIZAÇÃO, SENÃO E CADASTRO */
+            if (dadosAtualização) { /* CONDIÇÃO QUE SE OUVER DADOS NA PROPS ATUALIZACLIENTE, EXECUTA A ATUALIZAÇÃO, SENÃO E CADASTRO */
                 const dados = preparaJSON();
                 props.exeAtualizacao(dados);
             }
             else {
                 const dados = preparaJSON();
-                props.cadastraForn(dados);
+                props.cadastraCli(dados);
             }
         }
         evento.preventDefault();
@@ -84,7 +84,7 @@ export default function CADFornecedor(props) {
                 <Row className='mt-2 mb-2'>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Nome Fantasia</Form.Label>
+                            <Form.Label>Nome</Form.Label>
                             <Form.Control
                                 id="nome"
                                 name="nome"
@@ -93,7 +93,7 @@ export default function CADFornecedor(props) {
                                 ref={nome}
                             />
                             <Form.Control.Feedback type="invalid">
-                                Informe o nome fantasia da empresa
+                                Informe o nome do cliente
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
@@ -108,40 +108,40 @@ export default function CADFornecedor(props) {
                                 ref={email}
                             />
                             <Form.Control.Feedback type="invalid">
-                                Informe o e-mail da empresa
+                                Informe o e-mail do cliente
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Razão Social</Form.Label>
+                            <Form.Label>Endereço</Form.Label>
                             <InputGroup hasValidation>
                                 <Form.Control
-                                    id='nome_empresa'
-                                    name='nome_empresa'
+                                    id='endereco'
+                                    name='endereco'
                                     type="text"
                                     required
-                                    ref={nome_empresa}
+                                    ref={endereco}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Informe a razão social da empresa
+                                    Informe o endereço do cliente
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group>
-                            <Form.Label>CNPJ</Form.Label>
+                            <Form.Label>Telefone</Form.Label>
                             <InputGroup hasValidation>
                                 <Form.Control
-                                    id='cnpj'
-                                    name='cnpj'
+                                    id='telefone'
+                                    name='telefone'
                                     type="text"
                                     required
-                                    ref={cnpj}
+                                    ref={telefone}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Informe o CNPJ da empresa
+                                    Informe o telefone do cliente
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
@@ -160,7 +160,7 @@ export default function CADFornecedor(props) {
                                     ref={tipo_usuario}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Informe a permissão de acesso da empresa
+                                    Informe a permissão de acesso do cliente
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
@@ -177,14 +177,14 @@ export default function CADFornecedor(props) {
                                     ref={senha}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Informe a senha da acesso da empresa
+                                    Informe a senha de acesso do cliente
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
                     </Col>
                 </Row>
                 <Button type="submit" className='mt-3 me-2' variant='outline-primary'>Cadastrar</Button>
-                <Button variant="outline-secondary" className='mt-3' onClick={() => { props.mudaFornecedor(FORNECEDORES.listfornecedor) }}>Voltar</Button>
+                <Button variant="outline-secondary" className='mt-3' onClick={() => { props.mudaCliente(CLIENTES.listcliente) }}>Voltar</Button>
             </Form>
         </Container>
     );
