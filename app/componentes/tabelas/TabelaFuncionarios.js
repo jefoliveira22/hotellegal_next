@@ -1,10 +1,26 @@
 "use client"
 import { Container, Table, Button, Dropdown } from "react-bootstrap";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import USUARIOS from "../estados/useUsuarios";
+import ipBackend from "../IPBackend";
 
-export default function TabelaUsuarios(props) {
+export default function TabelaFuncionarios(props) {
+
+    const [listaDados, setListaDados] = useState([]);
+
+    useEffect(() => {
+        fetch(ipBackend + 'funcionario',
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                setListaDados(dados)
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }, [])
 
     function passaCPF() {
         const dadoscpf = pesquisa.current.value
@@ -13,11 +29,6 @@ export default function TabelaUsuarios(props) {
     }
 
     const pesquisa = useRef("")
-
-    const usuarios = [{ "id": "1", "nome": "Jeferson da Silva Oliveira", "tipo": "Gerente", "email": "jsoliveira@unoeste.edu.br" },
-    { "id": "2", "nome": "Hugo Botter Zarpelão", "tipo": "Auxiliar", "email": "hugo@unoeste.br" },
-    { "id": "3", "nome": "Alan Denis Recupero", "tipo": "Atendente", "email": "alan.recupero@gmail.com" },
-    { "id": "4", "nome": "Carlos Menezes dos Santos", "tipo": "Camareiro", "email": "menezes.carlosms@gmail.com" }];
 
     function BotãoEstilo(variavel) {
         if (variavel === "Gerente") {
@@ -68,18 +79,20 @@ export default function TabelaUsuarios(props) {
                         <th>NOME</th>
                         <th>CARGO</th>
                         <th>E-MAIL</th>
+                        <th>SALÁRIO</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        usuarios.map((usuario) => {
+                        listaDados.map((item) => {
                             return (
-                                <tr key={usuario.id}>
-                                    <td>{usuario.id}</td>
-                                    <td>{usuario.nome}</td>
-                                    <td>{BotãoEstilo(usuario.tipo)}</td>
-                                    <td>{usuario.email}</td>
+                                <tr key={item.usuario.usuario_id}>
+                                    <td>{item.usuario.usuario_id}</td>
+                                    <td>{item.usuario.nome}</td>
+                                    <td>{BotãoEstilo(item.cargo)}</td>
+                                    <td>{item.usuario.email}</td>
+                                    <td>{item.salario}</td>
                                     <td>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">

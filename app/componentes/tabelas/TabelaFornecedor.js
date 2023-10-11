@@ -1,10 +1,26 @@
 "use client"
 import { Container, Table, Button, Dropdown } from "react-bootstrap";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import USUARIOS from "../estados/useUsuarios";
+import ipBackend from "../IPBackend";
 
-export default function TabelaForncedores(props) {
+export default function TabelaFornecedores(props) {
+
+    const [listaDados, setListaDados] = useState([]);
+
+    useEffect(() => {
+        fetch(ipBackend + 'fornecedor',
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                setListaDados(dados)
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }, [])
 
     function passaCPF() {
         const dadoscpf = pesquisa.current.value
@@ -14,10 +30,6 @@ export default function TabelaForncedores(props) {
 
     const pesquisa = useRef("")
 
-    const usuarios = [{ "id": "1", "nome": "Atacadão SA", "cnpj": "123.123.123/0001-11", "email": "atacadaosup@atacadao.com" },
-    { "id": "2", "nome": "Leroy Merlin SA", "cnpj": "123.123.123/0001-11", "email": "leroymerlin@merlin.com" },
-    { "id": "3", "nome": "Via Varejo SA", "cnpj": "123.123.123/0001-11", "email": "via@varejo.com" },
-    { "id": "4", "nome": "Amazon do Brasil SA", "cnpj": "123.123.123/0001-11", "email": "amazon@amazon.com" }];
 
     /*function BotãoEstilo(variavel) {
         if (variavel === "Gerente") {
@@ -65,7 +77,8 @@ export default function TabelaForncedores(props) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NOME</th>
+                        <th>RAZÃO SOCIAL</th>
+                        <th>NOME FANTASIA</th>
                         <th>CNPJ</th>
                         <th>E-MAIL</th>
                         <th></th>
@@ -73,13 +86,14 @@ export default function TabelaForncedores(props) {
                 </thead>
                 <tbody>
                     {
-                        usuarios.map((usuario) => {
+                        listaDados.map((item) => {
                             return (
-                                <tr key={usuario.id}>
-                                    <td>{usuario.id}</td>
-                                    <td>{usuario.nome}</td>
-                                    <td>{usuario.cnpj}</td>
-                                    <td>{usuario.email}</td>
+                                <tr key={item.usuario.usuario_id}>
+                                    <td>{item.usuario.usuario_id}</td>
+                                    <td>{item.nome_empresa}</td>
+                                    <td>{item.usuario.nome}</td>
+                                    <td>{item.cnpj}</td>
+                                    <td>{item.usuario.email}</td>
                                     <td>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">

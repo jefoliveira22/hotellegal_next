@@ -1,10 +1,26 @@
 "use client"
 import { Container, Table, Button, Dropdown } from "react-bootstrap";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import USUARIOS from "../estados/useUsuarios";
+import ipBackend from "../IPBackend";
 
 export default function TabelaClientes(props) {
+
+    const [listaDados, setListaDados] = useState([]);
+
+    useEffect(() => {
+        fetch(ipBackend + 'cliente',
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                setListaDados(dados)
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }, [])
 
     function passaCPF() {
         const dadoscpf = pesquisa.current.value
@@ -13,11 +29,6 @@ export default function TabelaClientes(props) {
     }
 
     const pesquisa = useRef("")
-
-    const usuarios = [{ "id": "1", "nome": "João da Silva", "cpf": "123.123.123-11", "email": "joaosilva@gmail.com" },
-    { "id": "2", "nome": "Tulio de Barros", "cpf": "123.123.123-11", "email": "tuliobarros@hotmail.com" },
-    { "id": "3", "nome": "Sandra de Sá", "cpf": "123.123.123-11", "email": "sandrasa@gmail.com" },
-    { "id": "4", "nome": "Jubileu Amado", "cpf": "123.123.123-11", "email": "jubileuamando@hotmail.com" }];
 
     /*function BotãoEstilo(variavel) {
         if (variavel === "Gerente") {
@@ -66,20 +77,22 @@ export default function TabelaClientes(props) {
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
-                        <th>CPF</th>
                         <th>E-MAIL</th>
+                        <th>ENDEREÇO</th>
+                        <th>TELEFONE</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        usuarios.map((usuario) => {
+                        listaDados.map((item) => {
                             return (
-                                <tr key={usuario.id}>
-                                    <td>{usuario.id}</td>
-                                    <td>{usuario.nome}</td>
-                                    <td>{usuario.cpf}</td>
-                                    <td>{usuario.email}</td>
+                                <tr key={item.usuario.usuario_id}>
+                                    <td>{item.usuario.usuario_id}</td>
+                                    <td>{item.usuario.nome}</td>
+                                    <td>{item.usuario.email}</td>
+                                    <td>{item.endereco}</td>
+                                    <td>{item.telefone}</td>
                                     <td>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" id="dropdown-basic" size="sm">
