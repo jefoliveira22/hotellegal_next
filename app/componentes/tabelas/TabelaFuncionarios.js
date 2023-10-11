@@ -4,12 +4,13 @@ import { Form, Navbar, Nav } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import USUARIOS from "../estados/useUsuarios";
 import ipBackend from "../IPBackend";
+import FUNCIONARIOS from "../estados/useFuncionarios";
 
 export default function TabelaFuncionarios(props) {
 
-    const [listaDados, setListaDados] = useState([]);
+    const [listaDados, setListaDados] = useState([]); /* ESTADO QUE ARMAZENA OS DADOS DA BUSCA NO BACKEND */
 
-    useEffect(() => {
+    useEffect(() => { /* USEEFFECT EXECUTA AO RENDERIZAR A PAGINA BUSCANDO OS DADOS QUE VÃO EXIBIR NA TABELA */
         fetch(ipBackend + 'funcionario',
             {
                 method: "GET"
@@ -22,7 +23,7 @@ export default function TabelaFuncionarios(props) {
             });
     }, [])
 
-    function passaCPF() {
+    function passaCPF() { /* FUNÇÃO QUE PASSA O DADO DIGITADO AO CAMPO PESQUISA INFORMA COMO O FRONT DEVE BUSCAR NO BACKEND (CONSULTA COM OU SEM DADO) */
         const dadoscpf = pesquisa.current.value
         props.escolheBusca(true)
         props.dadosCPF(dadoscpf)
@@ -30,7 +31,7 @@ export default function TabelaFuncionarios(props) {
 
     const pesquisa = useRef("")
 
-    function BotãoEstilo(variavel) {
+    function BotãoEstilo(variavel) { /* FUNÇÃO QUE ESTILIZA A EXIBIÇÃO DO CARGO */
         if (variavel === "Gerente") {
             return <Button size="sm" variant="danger">Gerente</Button>
         }
@@ -51,7 +52,7 @@ export default function TabelaFuncionarios(props) {
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                        <Button variant="outline-success" onClick={() => { props.exibirHospede(HOSPEDE.cadastro) }}>
+                        <Button variant="outline-success" onClick={() => { props.mudaFuncionario(FUNCIONARIOS.cadfuncionario) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -102,7 +103,7 @@ export default function TabelaFuncionarios(props) {
                                                 </svg>
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                <Dropdown.Item onClick={() => { props.editarHospedes(hospedes) }}>
+                                                <Dropdown.Item onClick={() => { props.prepAtualizacao(item) }}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                                         <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />

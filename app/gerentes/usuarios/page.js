@@ -12,6 +12,9 @@ import CLIENTES from "@/app/componentes/estados/useClientes";
 import FORNECEDORES from "@/app/componentes/estados/useFornecedores";
 import FUNCIONARIOS from "@/app/componentes/estados/useFuncionarios";
 import alertaErro from "@/app/componentes/alertas/Erro";
+import CADFuncionario from "@/app/componentes/formularios/Funcionarios";
+import ipBackend from "@/app/componentes/IPBackend";
+import confirmaGravação from "@/app/componentes/alertas/Gravacao";
 
 
 export default function GerUsuarios() {
@@ -20,7 +23,43 @@ export default function GerUsuarios() {
     const [Clientes, setClientes] = useState(CLIENTES.listcliente); /* ESTADO QUE GERENCIA A OPÇÃO CLIENTES (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [Fornecedores, setFornecedores] = useState(FORNECEDORES.listfornecedor); /* ESTADO QUE GERENCIA A OPÇÃO FORNECEDORES (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
     const [Funcionarios, setFuncionarios] = useState(FUNCIONARIOS.listfuncionario); /* ESTADO QUE GERENCIA A OPÇÃO FUNCIONÁRIOS (MONTA TELA DE CADASTRO, ATUALIZAÇÃO E LISTAGEM) */
+    const [AtuFuncionario, setAtuFuncionario] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
 
+    function cadastrarFuncionario(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM USUÁRIO, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
+        fetch(ipBackend + "funcionario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((confirmacao) => {
+            confirmaGravação(confirmacao);
+            setFuncionarios(FUNCIONARIOS.listfuncionario);
+        }).catch((erro) => {
+            alertaErro(erro);
+            setFuncionarios(FUNCIONARIOS.listfuncionario);
+        });
+    }
+
+    function prepararAtualizacaoFuncionario(funcionario) { /* FUNÇÃO QUE ACIONA O CARREGAMENTO DA TELA DE ATUALIZAÇÃO E SALVA OS DADOS DO FUNCIONARIO QUE VAI SER ATUALIZADO */
+        setAtuFuncionario(funcionario);
+        setFuncionarios(FUNCIONARIOS.atufuncionario);
+    }
+
+    function atualizarFuncionario(dados) { /* FUNÇÃO QUE EXECUTA A ATUALIZAÇÃO DO FUNCIONÁRIO NO BACKEND */
+        fetch(ipBackend + "funcionario", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            confirmaAtualização(dados);
+            setFuncionarios(FUNCIONARIOS.listfuncionario);
+        }).catch((erro) => {
+            alertaErro(erro);
+        });
+    }
 
     /* MONTAGEM DA TELA ÚNICA - TELA HOME COM OPÇÕES (FUNCIONARIOS, FORNECEDORES E CLIENTES) */
 
@@ -42,7 +81,10 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR FUNCIONÁRIOS" />
-                <TabelaFuncionarios mudaTela={setUsuarios}/>
+                <TabelaFuncionarios mudaTela={setUsuarios}
+                                    mudaFuncionario={setFuncionarios}
+                                    prepAtualizacao={prepararAtualizacaoFuncionario}
+                                    />
                 <RodapeLogado />
             </main>
         );
@@ -53,7 +95,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR FUNCIONÁRIO" />
-
+                    <CADFuncionario mudaFuncionario={setFuncionarios}
+                                    cadastraFunc={cadastrarFuncionario}/>
                 <RodapeLogado />
             </main>
         );
@@ -64,6 +107,10 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR FUNCIONÁRIO" />
+                    <CADFuncionario mudaFuncionario={setFuncionarios}
+                                    exeAtualizacao={atualizarFuncionario}
+                                    atualizaFuncionario={AtuFuncionario}
+                                     />
                 <RodapeLogado />
             </main>
         );
