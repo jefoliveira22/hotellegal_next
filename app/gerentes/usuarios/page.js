@@ -83,7 +83,7 @@ export default function GerUsuarios() {
                 return resposta.json();
             }).then((mensagem) => {
                 confirmaRemocao(mensagem);
-                setFuncionarios(FUNCIONARIOS.listfuncionario);
+                setFuncionarios(FUNCIONARIOS.listfuncionario);                
             }).catch((erro) => {
                 alertaErro(erro);
             });

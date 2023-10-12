@@ -21,7 +21,7 @@ export default function TabelaClientes(props) {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-    }, [])
+    })
 
     function passaCPF() {
         const dadoscpf = pesquisa.current.value

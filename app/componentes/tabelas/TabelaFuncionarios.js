@@ -21,7 +21,7 @@ export default function TabelaFuncionarios(props) {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-    }, [])
+    })
 
     function passaCPF() { /* FUNÇÃO QUE PASSA O DADO DIGITADO AO CAMPO PESQUISA INFORMA COMO O FRONT DEVE BUSCAR NO BACKEND (CONSULTA COM OU SEM DADO) */
         const dadoscpf = pesquisa.current.value
