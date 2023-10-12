@@ -73,8 +73,8 @@ export default function GerUsuarios() {
     }
 
     function apagarFuncionario(funcionario) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
-        const ID = { usuario_id: funcionario.usuario_id }
-        fetch(ipBackend + 'funcionario',
+        const ID = { usuario_id: funcionario.usuario.usuario_id }
+        fetch(ipBackend + 'usuario',
             {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' },
@@ -83,6 +83,7 @@ export default function GerUsuarios() {
                 return resposta.json();
             }).then((mensagem) => {
                 confirmaRemocao(mensagem);
+                setFuncionarios(FUNCIONARIOS.listfuncionario);
             }).catch((erro) => {
                 alertaErro(erro);
             });
@@ -130,8 +131,8 @@ export default function GerUsuarios() {
     }
 
     function apagarFornecedor(fornecedor) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
-        const ID = { usuario_id: fornecedor.usuario_id }
-        fetch(ipBackend + 'fornecedor',
+        const ID = { usuario_id: fornecedor.usuario.usuario_id }
+        fetch(ipBackend + 'usuario',
             {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' },
@@ -140,6 +141,7 @@ export default function GerUsuarios() {
                 return resposta.json();
             }).then((mensagem) => {
                 confirmaRemocao(mensagem);
+                setFornecedores(FORNECEDORES.listfornecedor);
             }).catch((erro) => {
                 alertaErro(erro);
             });
@@ -187,8 +189,8 @@ export default function GerUsuarios() {
     }
 
     function apagarCliente(cliente) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
-        const ID = { usuario_id: cliente.usuario_id }
-        fetch(ipBackend + 'cliente',
+        const ID = { usuario_id: cliente.usuario.usuario_id }
+        fetch(ipBackend + 'usuario',
             {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' },
@@ -197,6 +199,7 @@ export default function GerUsuarios() {
                 return resposta.json();
             }).then((mensagem) => {
                 confirmaRemocao(mensagem);
+                setClientes(CLIENTES.listcliente);
             }).catch((erro) => {
                 alertaErro(erro);
             });
