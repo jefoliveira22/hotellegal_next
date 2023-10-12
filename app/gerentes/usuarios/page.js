@@ -18,6 +18,7 @@ import confirmaGravação from "@/app/componentes/alertas/Gravacao";
 import CADFornecedor from "@/app/componentes/formularios/Fornecedores";
 import CADCliente from "@/app/componentes/formularios/Clientes";
 import confirmaRemocao from "@/app/componentes/alertas/Remocao";
+import confirmaAtualização from "@/app/componentes/alertas/Atualizacao";
 
 
 export default function GerUsuarios() {
@@ -60,11 +61,8 @@ export default function GerUsuarios() {
             body: JSON.stringify(dados)
         }).then((resposta) => {
             return resposta.json();
-        }).then((dados) => {
-            confirmaAtualização(dados);
-            setFuncionarios(FUNCIONARIOS.listfuncionario);
-        }).catch((erro) => {
-            alertaErro(erro);
+        }).then((mensagem) =>{
+            confirmaAtualização(mensagem);
             setFuncionarios(FUNCIONARIOS.listfuncionario);
         });
     }
@@ -120,11 +118,8 @@ export default function GerUsuarios() {
             body: JSON.stringify(dados)
         }).then((resposta) => {
             return resposta.json();
-        }).then((dados) => {
-            confirmaAtualização(dados);
-            setFornecedores(FORNECEDORES.listfornecedor);
-        }).catch((erro) => {
-            alertaErro(erro);
+        }).then((mensagem) => {
+            confirmaAtualização(mensagem);
             setFornecedores(FORNECEDORES.listfornecedor);
         });
     }
@@ -180,11 +175,8 @@ export default function GerUsuarios() {
             body: JSON.stringify(dados)
         }).then((resposta) => {
             return resposta.json();
-        }).then((dados) => {
-            confirmaAtualização(dados);
-            setClientes(CLIENTES.listcliente);
-        }).catch((erro) => {
-            alertaErro(erro);
+        }).then((mensagem) => {
+            confirmaAtualização(mensagem);
             setClientes(CLIENTES.listcliente);
         });
     }
