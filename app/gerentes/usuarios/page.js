@@ -17,6 +17,7 @@ import ipBackend from "@/app/componentes/IPBackend";
 import confirmaGravação from "@/app/componentes/alertas/Gravacao";
 import CADFornecedor from "@/app/componentes/formularios/Fornecedores";
 import CADCliente from "@/app/componentes/formularios/Clientes";
+import confirmaRemocao from "@/app/componentes/alertas/Remocao";
 
 
 export default function GerUsuarios() {
@@ -28,6 +29,8 @@ export default function GerUsuarios() {
     const [AtuFuncionario, setAtuFuncionario] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FUNCIONÁRIO QUE VAI SER ATUALIZADO */
     const [AtuFornecedor, setAtuFornecedor] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO FORNECEDOR QUE VAI SER ATUALIZADO */
     const [AtuCliente, setAtuCliente] = useState([]); /* ESTADO QUE ARMAZENA A LINHA DA TABELA CONTENDO OS DADOS DO CLIENTE QUE VAI SER ATUALIZADO */
+
+    /* FUNÇÕES DE ADIÇÃO, ATUALIZAÇÃO, E REMOÇÃO PARA FUNCIONÁRIOS */
 
     function cadastrarFuncionario(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM USUÁRIO, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
         fetch(ipBackend + "funcionario", {
@@ -66,6 +69,29 @@ export default function GerUsuarios() {
         });
     }
 
+    function prepararRemocaoFuncionario(funcionario) { /* FUNÇÃO QUE MANIPULA A INFORMAÇÃO A SER REMOVIDA E ATUALIZA A TABELA APÓS O PROCESSO */
+        apagarFuncionario(funcionario);
+        setFuncionarios(FUNCIONARIOS.listfuncionario);
+    }
+
+    function apagarFuncionario(funcionario) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
+        const ID = { usuario_id: funcionario.usuario_id }
+        fetch(ipBackend + 'funcionario',
+            {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ID)
+            }).then((resposta) => {
+                return resposta.json();
+            }).then((mensagem) => {
+                confirmaRemocao(mensagem);
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }
+
+    /* FUNÇÕES DE ADIÇÃO, ATUALIZAÇÃO, E REMOÇÃO PARA FORNECEDORES */
+
     function cadastrarFornecedor(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM FORNECEDOR, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
         fetch(ipBackend + "fornecedor", {
             method: "POST",
@@ -102,6 +128,29 @@ export default function GerUsuarios() {
             setFornecedores(FORNECEDORES.listfornecedor);
         });
     }
+
+    function prepararRemocaoFornecedor(fornecedor) { /* FUNÇÃO QUE MANIPULA A INFORMAÇÃO A SER REMOVIDA E ATUALIZA A TABELA APÓS O PROCESSO */
+        apagarFornecedor(fornecedor);
+        setFornecedores(FORNECEDORES.listfornecedor);
+    }
+
+    function apagarFornecedor(fornecedor) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
+        const ID = { usuario_id: fornecedor.usuario_id }
+        fetch(ipBackend + 'fornecedor',
+            {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ID)
+            }).then((resposta) => {
+                return resposta.json();
+            }).then((mensagem) => {
+                confirmaRemocao(mensagem);
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }
+
+    /* FUNÇÕES DE ADIÇÃO, ATUALIZAÇÃO, E REMOÇÃO PARA CLIENTES */
 
     function cadastrarCliente(dados) { /* FUNÇÃO QUE É EXECUTADA AO CADASTRAR UM CLIENTE, ONDE RECEBE O JSON VINDO DA PAGINA DE CADASTRO */
         fetch(ipBackend + "cliente", {
@@ -140,6 +189,27 @@ export default function GerUsuarios() {
         });
     }
 
+    function prepararRemocaoCliente(cliente) { /* FUNÇÃO QUE MANIPULA A INFORMAÇÃO A SER REMOVIDA E ATUALIZA A TABELA APÓS O PROCESSO */
+        apagarCliente(cliente);
+        setClientes(CLIENTES.listcliente);
+    }
+
+    function apagarCliente(cliente) { /* FUNÇÃO QUE ENVIA O ITEM A SER REMOVIDO AO BACKEND */
+        const ID = { usuario_id: cliente.usuario_id }
+        fetch(ipBackend + 'cliente',
+            {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ID)
+            }).then((resposta) => {
+                return resposta.json();
+            }).then((mensagem) => {
+                confirmaRemocao(mensagem);
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }
+
     /* MONTAGEM DA TELA ÚNICA - TELA HOME COM OPÇÕES (FUNCIONARIOS, FORNECEDORES E CLIENTES) */
 
     if (Usuario === USUARIOS.telahome) {
@@ -156,14 +226,15 @@ export default function GerUsuarios() {
     /* MONTAGEM DA TELA ÚNICA - OPÇÃO FUNCIONÁRIOS */
 
     else if (Usuario === USUARIOS.telafunc && Funcionarios === FUNCIONARIOS.listfuncionario) { /* CONDIÇÃO PARA MONTAR A PÁGINA = SE O ESTADO USUARIO FOR "telafunc" */
-            return (                                                                         /*  E O ESTADO FUNCIONARIO FOR "listfuncionario", CARREGAR A TABELA FUNCIONÁRIOS */                                               
+        return (                                                                         /*  E O ESTADO FUNCIONARIO FOR "listfuncionario", CARREGAR A TABELA FUNCIONÁRIOS */
             <main>
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR FUNCIONÁRIOS" />
                 <TabelaFuncionarios mudaTela={setUsuarios}
-                                    mudaFuncionario={setFuncionarios}
-                                    prepAtualizacao={prepararAtualizacaoFuncionario}
-                                    />
+                    mudaFuncionario={setFuncionarios}
+                    prepAtualizacao={prepararAtualizacaoFuncionario}
+                    prepRemocao={prepararRemocaoFuncionario}
+                />
                 <RodapeLogado />
             </main>
         );
@@ -174,8 +245,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR FUNCIONÁRIO" />
-                    <CADFuncionario mudaFuncionario={setFuncionarios}
-                                    cadastraFunc={cadastrarFuncionario}/>
+                <CADFuncionario mudaFuncionario={setFuncionarios}
+                    cadastraFunc={cadastrarFuncionario} />
                 <RodapeLogado />
             </main>
         );
@@ -186,10 +257,10 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR FUNCIONÁRIO" />
-                    <CADFuncionario mudaFuncionario={setFuncionarios}
-                                    exeAtualizacao={atualizarFuncionario}
-                                    atualizaFuncionario={AtuFuncionario}
-                                     />
+                <CADFuncionario mudaFuncionario={setFuncionarios}
+                    exeAtualizacao={atualizarFuncionario}
+                    atualizaFuncionario={AtuFuncionario}
+                />
                 <RodapeLogado />
             </main>
         );
@@ -203,8 +274,9 @@ export default function GerUsuarios() {
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR FORNECEDORES" />
                 <TabelaFornecedores mudaTela={setUsuarios}
-                                    mudaFornecedor={setFornecedores}
-                                    prepAtualizacao={prepararAtualizacaoFornecedor}/>
+                    mudaFornecedor={setFornecedores}
+                    prepAtualizacao={prepararAtualizacaoFornecedor}
+                    prepRemocao={prepararRemocaoFornecedor} />
                 <RodapeLogado />
             </main>
         );
@@ -215,8 +287,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR FORNECEDOR" />
-                    <CADFornecedor mudaFornecedor={setFornecedores}
-                                   cadastraForn={cadastrarFornecedor}/>
+                <CADFornecedor mudaFornecedor={setFornecedores}
+                    cadastraForn={cadastrarFornecedor} />
                 <RodapeLogado />
             </main>
         );
@@ -227,9 +299,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR FORNECEDOR" />
-                    <CADFornecedor mudaFornecedor={setFornecedores}
-                                   exeAtualizacao={atualizarFornecedor}
-                                   atualizaFornecedor={AtuFornecedor} />
+                <CADFornecedor mudaFornecedor={setFornecedores}
+                    exeAtualizacao={atualizarFornecedor}
+                    atualizaFornecedor={AtuFornecedor} />
                 <RodapeLogado />
             </main>
         );
@@ -243,8 +315,9 @@ export default function GerUsuarios() {
                 <Menu />
                 <Cabecalho titulopagina="GERENCIAR CLIENTES" />
                 <TabelaClientes mudaTela={setUsuarios}
-                                mudaCliente={setClientes}
-                                prepAtualizacao={prepararAtualizacaoCliente}/>
+                    mudaCliente={setClientes}
+                    prepAtualizacao={prepararAtualizacaoCliente}
+                    prepRemocao={prepararRemocaoCliente} />
                 <RodapeLogado />
             </main>
         );
@@ -255,8 +328,8 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ADICIONAR CLIENTE" />
-                    <CADCliente mudaCliente={setClientes}
-                                cadastraCli={cadastrarCliente} />
+                <CADCliente mudaCliente={setClientes}
+                    cadastraCli={cadastrarCliente} />
                 <RodapeLogado />
             </main>
         );
@@ -267,9 +340,9 @@ export default function GerUsuarios() {
             <main>
                 <Menu />
                 <Cabecalho titulopagina="ATUALIZAR CLIENTE" />
-                    <CADCliente mudaCliente={setClientes}
-                                exeAtualizacao={atualizarCliente}
-                                atualizaCliente={AtuCliente} />
+                <CADCliente mudaCliente={setClientes}
+                    exeAtualizacao={atualizarCliente}
+                    atualizaCliente={AtuCliente} />
                 <RodapeLogado />
             </main>
         );
