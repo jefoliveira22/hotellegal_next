@@ -11,7 +11,7 @@ import TabelaClientes from "@/app/componentes/tabelas/TabelaClientes";
 import CLIENTES from "@/app/componentes/estados/useClientes";
 import FORNECEDORES from "@/app/componentes/estados/useFornecedores";
 import FUNCIONARIOS from "@/app/componentes/estados/useFuncionarios";
-import alertaErro from "@/app/componentes/alertas/Erro";
+import alertaErro from "@/app/componentes/alertas/Erro.js";
 import CADFuncionario from "@/app/componentes/formularios/Funcionarios";
 import ipBackend from "@/app/componentes/IPBackend";
 import confirmaGravação from "@/app/componentes/alertas/Gravacao";
