@@ -110,6 +110,7 @@ export default function HomeSection(props) {
                                     id="login"
                                     name="login"
                                     ref={login}
+                                    placeholder='Informe o e-mail'
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3 d-flex align-items-center">

@@ -2,7 +2,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-export default function MenuAuxServico(props) {
+export default function MenuAuxServico() {
     return (
         <nav>
             <Navbar bg="dark" variant="dark" >

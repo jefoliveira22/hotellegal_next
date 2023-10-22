@@ -8,8 +8,9 @@ main {
 
 .fixarRodape {
   bottom: 0;
-  position:relative;
+  position:fixed;
   width: 100%;
+  top: 86%;
 }
 
 .fixarRodapeLogado {

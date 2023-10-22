@@ -1,6 +1,8 @@
 import { Container, Form, Row, Col, Button, InputGroup } from "react-bootstrap";
 import { useRef, useState, useEffect } from "react";
 import CAMAREIRO from "../estados/useCamareiro.js";
+import BarraBuscaREV from "../buscas/barrabuscaREV.js";
+import ipBackend from "../IPBackend.js";
 
 export default function TelaCADATVCamareiro(props) {
 
@@ -8,15 +10,25 @@ export default function TelaCADATVCamareiro(props) {
 
     useEffect(() => {
         if (props.atuATVCamareiros) {
-            cpf_cam.current.value = props.atuATVCamareiros.cpf_cam
             descricao.current.value = props.atuATVCamareiros.descricao
             prioridade.current.value = props.atuATVCamareiros.prioridade
             tempoMedioDuracaoMin.current.value = props.atuATVCamareiros.tempoMedioDuracaoMin
         }
+        fetch(ipBackend + 'funcionario',
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                setDadosFuncionarios(dados)
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
     }, []);
 
     const [formValidado, setFormValidado] = useState(false);
-    const cpf_cam = useRef("");
+    const [dadosFuncionarios, setDadosFuncionarios] = useState([]);
+    const [funcionarioSelecionado, setFuncionarioSelecionado] = useState([]);
     const descricao = useRef("");
     const prioridade = useRef("");
     const tempoMedioDuracaoMin = useRef("");
@@ -25,12 +37,12 @@ export default function TelaCADATVCamareiro(props) {
         if (atualizarATVCamareiro) {
             const atvcamareiro = {
                 id_atv: props.atuATVCamareiros.id_atv,
-                cpf_cam: cpf_cam.current.value,
+                nis_cam: funcionarioSelecionado.nis_cam,
                 descricao: descricao.current.value,
                 prioridade: prioridade.current.value,
                 tempoMedioDuracaoMin: tempoMedioDuracaoMin.current.value,
             }
-            if (atvcamareiro.cpf_cam && atvcamareiro.descricao && atvcamareiro.prioridade && atvcamareiro.tempoMedioDuracaoMin) {
+            if (atvcamareiro.nis_cam && atvcamareiro.descricao && atvcamareiro.prioridade && atvcamareiro.tempoMedioDuracaoMin) {
                 return atvcamareiro;
             }
             else {
@@ -39,12 +51,12 @@ export default function TelaCADATVCamareiro(props) {
         }
         else {
             const atvcamareiro = {
-                cpf_cam: cpf_cam.current.value,
+                nis_cam: funcionarioSelecionado.nis,
                 descricao: descricao.current.value,
                 prioridade: prioridade.current.value,
                 tempoMedioDuracaoMin: tempoMedioDuracaoMin.current.value,
             }
-            if (atvcamareiro.cpf_cam && atvcamareiro.descricao && atvcamareiro.prioridade && atvcamareiro.tempoMedioDuracaoMin) {
+            if (atvcamareiro.nis_cam && atvcamareiro.descricao && atvcamareiro.prioridade && atvcamareiro.tempoMedioDuracaoMin) {
                 return atvcamareiro;
             }
             else {
@@ -75,21 +87,21 @@ export default function TelaCADATVCamareiro(props) {
         <Container className="mb-3 mt-3 text-center">
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row className='mt-2 mb-2'>
-                    <Col>
+                <Col md={4}>
                         <Form.Group>
-                            <Form.Label>CPF</Form.Label>
+                            <Form.Label>Funcionário Designado</Form.Label>
                             <InputGroup hasValidation>
-                                <Form.Control
-                                    id="cpf_cam"
-                                    name="cpf_cam"
-                                    type="text"
-                                    required
-                                    ref={cpf_cam}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe o CPF.
-                                </Form.Control.Feedback>
+                                <BarraBuscaREV placeHolder={'Busque pelo nome do funcionário'}
+                                    dados={dadosFuncionarios}
+                                    campoChave={"nis"}
+                                    campoBusca={"nome"}
+                                    funcaoSelecao={setFuncionarioSelecionado}
+                                    valor={""}
+                                    required />
                             </InputGroup>
+                            <Form.Control.Feedback type="invalid">
+                                Informe o nome do hospede
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col>
@@ -110,8 +122,8 @@ export default function TelaCADATVCamareiro(props) {
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row className='mt-2 mb-2'>
-                    <Col>
+                <Row className='mt-2 mb-2 d-flex justify-content-center'>
+                    <Col md={2}>
                         <Form.Group>
                             <Form.Label>Prioridade</Form.Label>
                             <Form.Select
@@ -130,7 +142,7 @@ export default function TelaCADATVCamareiro(props) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-                    <Col>
+                    <Col md={2}>
                         <Form.Group>
                             <Form.Label>Tempo Médio</Form.Label>
                             <Form.Control

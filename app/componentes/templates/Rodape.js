@@ -1,4 +1,4 @@
-export default function Rodape(props) {
+export default function Rodape() {
     return (
         <footer className="bg-secondary p-4 d-flex justify-content-right align-content-center fixarRodape">
             <h6><b><font color="white">HotelLegal - Todos os direitos reservados.</font></b><br />

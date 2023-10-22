@@ -2,7 +2,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-export default function MenuAtendente(props) {
+export default function MenuAtendente() {
     return (
         <nav>
             <Navbar bg="dark" variant="dark" >

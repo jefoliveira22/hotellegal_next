@@ -2,7 +2,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-export default function MenuHospede(props) {
+export default function MenuHospede() {
     return (
         <nav>
             <Navbar bg="dark" variant="dark" >

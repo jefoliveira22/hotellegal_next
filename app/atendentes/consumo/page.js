@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import FormCADConsumo from "@/app/componentes/formularios/CADConsumo.js";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import MenuAtendente from "@/app/componentes/templates/MenuAtendente.js";
+import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaConsumos from "@/app/componentes/tabelas/TabelaConsumo.js";
 import CONSUMO from "@/app/componentes/estados/useConsumo.js";
 import MODOBUSCACONS from "@/app/componentes/estados/useModoBuscaConsumo.js";
@@ -153,7 +153,7 @@ export default function TelaCadConsumo() {
     if (consumo === CONSUMO.listagem) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu />
                 <Cabecalho titulopagina="GERENCIAR CONSUMOS" />
                 <TabelaConsumos exibirConsumo={setConsumo}
                     dadosConsumos={listaConsumos}
@@ -170,7 +170,7 @@ export default function TelaCadConsumo() {
     else if (consumo === CONSUMO.cadastro) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu />
                 <Cabecalho titulopagina="CADASTRAR CONSUMO" />
                 <FormCADConsumo exibirConsumo={setConsumo} 
                                 escolheBusca={setBusca} />
@@ -182,7 +182,7 @@ export default function TelaCadConsumo() {
     else if (consumo === CONSUMO.atualizar) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu />
                 <Cabecalho titulopagina="ATUALIZAR CONSUMO" />
                 <FormATUConsumo exibirConsumo={setConsumo} 
                                 listaConsumo={atualizaConsumo} 
@@ -195,7 +195,7 @@ export default function TelaCadConsumo() {
     else if (consumo === CONSUMO.cadastroProduto) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu/>
                 <Cabecalho titulopagina="CADASTRAR PRODUTO" />
                 <FormCADProduto exibirConsumo={setConsumo}/>
                 <RodapeLogado />
@@ -206,7 +206,7 @@ export default function TelaCadConsumo() {
     else if (consumo === CONSUMO.atualizarProduto) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu/>
                 <Cabecalho titulopagina="ATUALIZAR PRODUTO" />
                 <FormCADProduto atualizaProduto={atualizaProduto}
                                 exeAtualizaçãoProduto={atualizarProdutos}
@@ -220,7 +220,7 @@ export default function TelaCadConsumo() {
     else if (consumo === CONSUMO.listarProduto) {
         return (
             <div>
-                <MenuAtendente />
+                <Menu/>
                 <Cabecalho titulopagina="LISTAR PRODUTOS CADASTRADOS"/>
                 <TabelaProdutos exibirConsumo={setConsumo}
                                 apagarProduto={prepararRemocaoProduto}

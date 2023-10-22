@@ -1,6 +1,6 @@
 "use client"
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import MenuAtendente from "@/app/componentes/templates/MenuAtendente.js";
+import Menu from "@/app/componentes/templates/Menu.js";
 import { useEffect, useState } from "react";
 import TabelaCheckin from "@/app/componentes/tabelas/TabelaCheckin.js";
 import CHECKIN from "@/app/componentes/estados/useCheckin.js";
@@ -41,7 +41,7 @@ export default function TelaCadCheckin() {
 
     return (
         <div>
-            <MenuAtendente />
+            <Menu />
             <Cabecalho titulopagina="LISTA DE RESERVAS" />
             <TabelaCheckin dadosCheckin={reservas} 
                         execBaixa={setBaixarReserva} 

@@ -14,7 +14,7 @@ export default function TabelaATVCamareiro(props) {
 
     return (
         <Container className='mb-5'>
-            <Navbar expand="lg">
+            <Navbar expand="lg" className="mt-2 mb-2">
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
@@ -43,7 +43,8 @@ export default function TabelaATVCamareiro(props) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>CPF</th>
+                        <th>NIS</th>
+                        <th>FUNCIONÁRIO</th>
                         <th>DESCRIÇÃO</th>
                         <th>PRIORIDADE</th>
                         <th>TEMPO DURAÇÃO</th>
@@ -56,7 +57,8 @@ export default function TabelaATVCamareiro(props) {
                             return (
                                 <tr key={atvcamareiros.id_atv}>
                                     <td>{atvcamareiros.id_atv}</td>
-                                    <td>{atvcamareiros.cpf_cam}</td>
+                                    <td>{atvcamareiros.nis_cam.nis}</td>
+                                    <td>{atvcamareiros.nis_cam.usuario.nome}</td>
                                     <td>{atvcamareiros.descricao}</td>
                                     <td>{atvcamareiros.prioridade}</td>
                                     <td>{atvcamareiros.tempoMedioDuracaoMin}</td>
@@ -80,11 +82,6 @@ export default function TabelaATVCamareiro(props) {
                     }
                 </tbody>
             </Table>
-            <Button variant="outline-secondary" onClick={() => { props.mudaTela(CAMAREIRO.home) }} className="mt-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-                    <path d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-                </svg> Voltar
-            </Button>
         </Container>
     );
 }

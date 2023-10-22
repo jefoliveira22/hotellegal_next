@@ -1,6 +1,6 @@
 "use client"
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import MenuHospede from "@/app/componentes/templates/MenuHospede.js";
+import Menu from "@/app/componentes/templates/Menu.js";
 import FormREVHospede from "@/app/componentes/formularios/REVHospede.js";
 import { useState } from "react";
 import FormReserva from "@/app/componentes/formularios/Reserva.js";
@@ -30,7 +30,7 @@ export default function TelaCadReserva() {
     if (reserva === RESERVA.hospede) {
         return (
             <div>
-                <MenuHospede />
+                <Menu />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <FormREVHospede subtitulo="Informe os dados abaixo" botao="Avançar" exibirReserva={setReserva}/>
                 <RodapeLogado />
@@ -41,7 +41,7 @@ export default function TelaCadReserva() {
     else if (reserva === RESERVA.reserva) {
         return (
             <div>
-                <MenuHospede />
+                <Menu />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <FormReserva exibirReserva={setReserva} 
                                  subtitulo="Segundo passo - Escolha sua reserva."/>
@@ -56,7 +56,7 @@ export default function TelaCadReserva() {
 
         return (
             <div>
-                <MenuHospede />
+                <Menu />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
                     <ComprovanteReserva exibirReserva={setReserva} dados={listaReservas}/>
                 <RodapeLogado />
