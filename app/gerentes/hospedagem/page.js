@@ -2,7 +2,7 @@
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
 import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaHospedagem from "@/app/componentes/tabelas/TabelaHospedagem.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormCheckout from "@/app/componentes/formularios/Checkout";
 import ipBackend from "@/app/componentes/IPBackend.js";
 import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
@@ -15,8 +15,8 @@ export default function TelaCadHospdedagem() {
     const [estadoHospedagem, setEstadoHospedagem] = useState(true);
     const [checkout, setCheckout] = useState([]);
 
-    function buscarHospedagem() {
-        fetch(ipBackend	+ 'hospedagem',
+    useEffect(() => {
+        fetch(ipBackend + 'hospedagem',
             {
                 method: "GET"
             }).then((resposta) => {
@@ -26,25 +26,24 @@ export default function TelaCadHospdedagem() {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-    }
+    }, [])
 
     function encerrarHospedagem(dadosHosp) {
         fetch(ipBackend + "hospedagem", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dadosHosp)
-            }).then((resposta) => {
-                return resposta.json();
-            }).then((dados) => {
-                confirmaAtualização(dados);
-                setEstadoHospedagem(true);
-            }).catch((erro) => {
-                alertaErro(erro);
-            });
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dadosHosp)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            confirmaAtualização(dados);
+            setEstadoHospedagem(true);
+        }).catch((erro) => {
+            alertaErro(erro);
+        });
     }
 
     if (estadoHospedagem) {
-        buscarHospedagem();
         return (
             <div>
                 <Menu />
@@ -59,7 +58,7 @@ export default function TelaCadHospdedagem() {
             <div>
                 <Menu />
                 <Cabecalho titulopagina="PAGAMENTO" />
-                <FormCheckout dadosCheckout={checkout} execCheckout={encerrarHospedagem} voltar={setEstadoHospedagem}/>
+                <FormCheckout dadosCheckout={checkout} execCheckout={encerrarHospedagem} voltar={setEstadoHospedagem} />
                 <RodapeLogado />
             </div>
         );

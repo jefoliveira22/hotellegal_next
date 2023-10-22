@@ -44,7 +44,9 @@ export default function TabelaHospedagem(props) {
                 }
                 else {
                     return (
-                        <div></div>
+                        <div className="mt-3">
+                            <h3>Ops... O Hotel parece estar vazio!</h3>
+                        </div>
                     )
                 }
             })}

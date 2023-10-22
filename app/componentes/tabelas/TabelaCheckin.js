@@ -111,19 +111,19 @@ export default function TabelaCheckin(props) {
                                             <h7><b>CPF:</b> {reserva.hospede.cpf}</h7>
                                         </Row>
                                         <Row>
-                                            <h7><b>Nome:</b> {reserva.hospede.nome}</h7>
+                                            <h7><b>Nome:</b> {reserva.hospede.usuario.nome}</h7>
                                         </Row>
                                         <Row>
-                                            <h7><b>Telefone:</b> {reserva.hospede.telefone}</h7>
+                                            <h7><b>Telefone:</b> {reserva.hospede.usuario.telefone}</h7>
                                         </Row>
                                         <Row>
-                                            <h7><b>Endereço:</b> {reserva.hospede.endereco}</h7>
+                                            <h7><b>Endereço:</b> {reserva.hospede.usuario.endereco}</h7>
                                         </Row>
                                         <Row>
-                                            <h7><b>Cidade:</b> {reserva.hospede.cidade}</h7>
+                                            <h7><b>Cidade:</b> {reserva.hospede.usuario.cidade}</h7>
                                         </Row>
                                         <Row>
-                                            <h7><b>E-mail:</b> {reserva.hospede.email}</h7>
+                                            <h7><b>E-mail:</b> {reserva.hospede.usuario.email}</h7>
                                         </Row>
                                     </Card.Text>
                                     <Card.Title> <b>Dados da Reserva</b>  </Card.Title>
@@ -150,7 +150,8 @@ export default function TabelaCheckin(props) {
                     }
                     else {
                         return (
-                            <div></div>
+                            <div className="mt-3">
+                            </div>
                         )
                     }
                 })}

@@ -3,6 +3,7 @@ import SERVICO from "../estados/useServico.js";
 import { Form, Navbar, Nav } from "react-bootstrap";
 import { useRef } from "react";
 import MODOBUCASERV from "../estados/useModoBuscaServico.js";
+import { Accordion } from "react-bootstrap";
 
 export default function TabelaConsumoServ(props) {
 
@@ -22,7 +23,7 @@ export default function TabelaConsumoServ(props) {
 
     return (
         <Container className='mb-5'>
-            <Navbar expand="lg">
+            <Navbar expand="lg" className="mt-2 mb-2">
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
@@ -56,14 +57,7 @@ export default function TabelaConsumoServ(props) {
             <Table striped bordered hover className="text-center">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>ID HOSPEDAGEM</th>
-                        <th>NOME</th>
-                        <th>QUARTO</th>
-                        <th>DATA</th>
-                        <th>DESCONTO</th>
-                        <th>VALOR</th>
-                        <th>AÇÕES</th>
+                        <th>LISTA DE SERVIÇOS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,21 +68,50 @@ export default function TabelaConsumoServ(props) {
                             let valor = parseFloat(consumos.valor_serv);
                             return (
                                 <tr key={consumos.id_consumo_serv}>
-                                    <td>{consumos.id_consumo_serv}</td>
-                                    <td>{consumos.hospedagem.id_hospedagem}</td>
-                                    <td>{consumos.hospedagem.reserva.hospede.nome}</td>
-                                    <td>{consumos.hospedagem.reserva.acomodacao}</td>
-                                    <td>{data_cons.toLocaleDateString()}</td>
-                                    <td>R$ {desconto.toFixed(2)}</td>
-                                    <td>R$ {valor.toFixed(2)}</td>
-                                    <td>
-                                        <Button className="" size="sm" variant="outline-danger" onClick={() => { props.apagarConsumoS(consumos) }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                            </svg>
-                                        </Button>
-                                    </td>
+                                    <Accordion>
+                                        <Accordion.Item eventKey="0">
+                                            <Accordion.Header>
+                                                <p>
+                                                    <strong>ID:</strong> {consumos.id_consumo_serv}  |
+                                                    <strong>  NOME:</strong> {consumos.hospedagem.reserva.hospede.usuario.nome}  |
+                                                    <strong>  QUARTO:</strong> {consumos.hospedagem.reserva.acomodacao}  |
+                                                    <strong>  DATA:</strong> {data_cons.toLocaleDateString()}
+                                                </p>
+                                            </Accordion.Header>
+                                            <Accordion.Body>
+                                                <p><strong>ID HOSPEDAGEM:</strong> {consumos.hospedagem.id_hospedagem} |
+                                                    <strong> DESCONTO:</strong> R$ {desconto.toFixed(2)} |
+                                                    <strong> VALOR TOTAL:</strong> R$ {valor.toFixed(2)}</p>
+                                                <p><Button className="text-end" size="sm" variant="outline-danger" onClick={() => { props.apagarConsumoS(consumos) }}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg> REMOVER
+                                                </Button>
+                                                </p>
+                                                <Table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SERVIÇO</th>
+                                                            <th>QUANTIDADE</th>
+                                                            <th>VALOR UNITÁRIO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumos.listaServicos.map((linha, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{linha.servico.nome_serv}</td>
+                                                                    <td>{linha.qtd_serv}</td>
+                                                                    <td>{linha.valor_serv}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </Table>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </Accordion>
                                 </tr>
                             );
                         })

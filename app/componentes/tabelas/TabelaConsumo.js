@@ -22,7 +22,7 @@ export default function TabelaConsumos(props) {
 
     return (
         <Container className='mb-5'>
-            <Navbar expand="lg">
+            <Navbar expand="lg" className="mt-2 mb-2">
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
@@ -72,7 +72,7 @@ export default function TabelaConsumos(props) {
                                             <Accordion.Header>
                                                 <p>
                                                     <strong>ID:</strong> {consumos.id_consumo}  |
-                                                    <strong>  NOME:</strong> {consumos.hospedagem.reserva.hospede.nome}  |
+                                                    <strong>  NOME:</strong> {consumos.hospedagem.reserva.hospede.usuario.nome}  |
                                                     <strong>  QUARTO:</strong> {consumos.hospedagem.reserva.acomodacao}  |
                                                     <strong>  DATA:</strong> {data_cons.toLocaleDateString()}
                                                 </p>

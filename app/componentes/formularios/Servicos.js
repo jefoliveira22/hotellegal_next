@@ -43,7 +43,7 @@ export default function FormServico(props) {
                             id_hospedagem: linha.id_hospedagem,
                             id_reserva: linha.reserva.id_reserva,
                             cpf: linha.reserva.hospede.cpf,
-                            nome: linha.reserva.hospede.nome,
+                            nome: linha.reserva.hospede.usuario.nome,
                             acomodacao: linha.reserva.acomodacao
                         }
                         listaHospedagem.push(dado);

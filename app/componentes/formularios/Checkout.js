@@ -106,7 +106,7 @@ export default function FormCheckout(props) {
                                             <strong>Hospede CPF:</strong> {hospedagem.reserva.hospede.cpf}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
-                                            <strong>Hospede Nome:</strong> {hospedagem.reserva.hospede.nome}
+                                            <strong>Hospede Nome:</strong> {hospedagem.reserva.hospede.usuario.nome}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <strong>Código da Hospedagem:</strong> {hospedagem.id_hospedagem}
