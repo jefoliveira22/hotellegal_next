@@ -9,6 +9,7 @@ import FormATUQuarto from "@/app/componentes/formularios/ATUQuarto.js";
 import FormCADQuarto from "@/app/componentes/formularios/CADQuarto.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import MenuAuxServico from "@/app/componentes/templates/MenuAuxServico";
 
 export default function TelaCadQuarto() {
 
@@ -75,7 +76,7 @@ export default function TelaCadQuarto() {
     if (Quarto === QUARTO.listagem) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="GERENCIAR QUARTOS" />
                 <TabelaQuartos exibirQuarto={setQuarto}
                     dadosQuarto={listaQuartos}
@@ -91,7 +92,7 @@ export default function TelaCadQuarto() {
     else if (Quarto === QUARTO.cadastro) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="CADASTRAR QUARTOS" />
                 <FormCADQuarto exibirQuarto={setQuarto} escolheBusca={setBusca}/>
                 <RodapeLogado />
@@ -102,7 +103,7 @@ export default function TelaCadQuarto() {
     else if (Quarto === QUARTO.atualizar) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATUALIZAR QUARTOS" />
                 <FormATUQuarto exibirQuarto={setQuarto} listaQuarto={atualizaQuarto} escolheBusca={setBusca}/>
                 <RodapeLogado />

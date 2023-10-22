@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import FormCADServico from "@/app/componentes/formularios/CADServico.js";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaServico from "@/app/componentes/tabelas/TabelaServico.js";
 import SERVICO from "@/app/componentes/estados/useServico.js";
 import FormATUServico from "@/app/componentes/formularios/ATUServico.js";
@@ -12,6 +11,7 @@ import FormServico from "@/app/componentes/formularios/Servicos.js";
 import MODOBUCASERV from "@/app/componentes/estados/useModoBuscaServico.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import MenuAtendente from "@/app/componentes/templates/MenuAtendente";
 
 export default function TelaCadServico() {
 
@@ -131,7 +131,7 @@ export default function TelaCadServico() {
     if (Servico === SERVICO.listagem) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="GERENCIAR SERVIÇO" />
                 <TabelaConsumoServ exibirServico={setServico}
                     dadosConsumoS={dadosConsumoServ}
@@ -147,7 +147,7 @@ export default function TelaCadServico() {
     else if (Servico === SERVICO.cadastro) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="CADASTRAR SERVIÇO" />
                 <FormServico exibirServico={setServico} />
                 <RodapeLogado />
@@ -158,7 +158,7 @@ export default function TelaCadServico() {
     else if (Servico === SERVICO.atualizar) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="ATUALIZAR SERVIÇO" />
                 <RodapeLogado />
             </div>
@@ -168,7 +168,7 @@ export default function TelaCadServico() {
     else if (Servico === SERVICO.listarServico) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="LISTA DE SERVIÇO DE QUARTO" />
                 <TabelaServico exibirServico={setServico}
                     dadosServicos={listaServicos}
@@ -185,7 +185,7 @@ export default function TelaCadServico() {
     else if (Servico === SERVICO.cadastroServico) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="CADASTRAR SERVIÇO DE QUARTO" />
                 <FormCADServico exibirServico={setServico} escolheBusca={setBusca} />
                 <RodapeLogado />
@@ -196,7 +196,7 @@ export default function TelaCadServico() {
     else if (Servico === SERVICO.atualizarServico) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="ATUALIZAR SERVIÇO DE QUARTO" />
                 <FormATUServico exibirServico={setServico} listaServico={atualizaServico} escolheBusca={setBusca} />
                 <RodapeLogado />

@@ -1,6 +1,5 @@
 "use client"
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaHospedagem from "@/app/componentes/tabelas/TabelaHospedagem.js";
 import { useEffect, useState } from "react";
 import FormCheckout from "@/app/componentes/formularios/Checkout";
@@ -8,6 +7,7 @@ import ipBackend from "@/app/componentes/IPBackend.js";
 import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import MenuAtendente from "@/app/componentes/templates/MenuAtendente";
 
 export default function TelaCadHospdedagem() {
 
@@ -46,7 +46,7 @@ export default function TelaCadHospdedagem() {
     if (estadoHospedagem) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="HOSPEDAGENS" />
                 <TabelaHospedagem dados={hospedagem} mudaCheckout={setEstadoHospedagem} dadosCheckout={setCheckout} />
                 <RodapeLogado />
@@ -56,7 +56,7 @@ export default function TelaCadHospdedagem() {
     else {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="PAGAMENTO" />
                 <FormCheckout dadosCheckout={checkout} execCheckout={encerrarHospedagem} voltar={setEstadoHospedagem} />
                 <RodapeLogado />

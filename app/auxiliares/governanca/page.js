@@ -1,5 +1,4 @@
 "use client"
-import Menu from "@/app/componentes/templates/Menu.js";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
 import CAMAREIRO from "@/app/componentes/estados/useCamareiro.js";
 import { useState, useEffect } from "react";
@@ -10,6 +9,7 @@ import alertaErro from "@/app/componentes/alertas/Erro.js";
 import confirmaGravação from "@/app/componentes/alertas/Gravacao.js";
 import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import MenuAuxServico from "@/app/componentes/templates/MenuAuxServico";
 
 export default function TelaGovernanca() {
 
@@ -101,7 +101,7 @@ export default function TelaGovernanca() {
     if (estadoTela === CAMAREIRO.listaatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATIVIDADES CADASTRADAS" />
                 <TabelaATVCamareiro mudaTela={setEstadoTela}
                     listaAtvCamareiros={atvCamareiros}
@@ -117,7 +117,7 @@ export default function TelaGovernanca() {
     else if (estadoTela === CAMAREIRO.cadastraatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="CADASTRAR ATIVIDADE" />
                 <TelaCADATVCamareiro mudaTela={setEstadoTela} exCadATV={cadastrarATVCamareiros} />
                 <RodapeLogado />
@@ -128,7 +128,7 @@ export default function TelaGovernanca() {
     else if (estadoTela === CAMAREIRO.atualizaatv) {
         return (
             <div>
-                <Menu />
+                <MenuAuxServico />
                 <Cabecalho titulopagina="ATUALIZAR ATIVIDADE" />
                 <TelaCADATVCamareiro mudaTela={setEstadoTela}
                     atuATVCamareiros={atualizarATVCamareiro}

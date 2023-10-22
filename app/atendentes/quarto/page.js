@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaQuartos from "@/app/componentes/tabelas/TabelaQuarto.js";
 import QUARTO from "@/app/componentes/estados/useQuarto.js";
 import ipBackend from "@/app/componentes/IPBackend.js";
@@ -9,6 +8,7 @@ import FormATUQuarto from "@/app/componentes/formularios/ATUQuarto.js";
 import FormCADQuarto from "@/app/componentes/formularios/CADQuarto.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import MenuAtendente from "@/app/componentes/templates/MenuAtendente";
 
 export default function TelaCadQuarto() {
 
@@ -75,7 +75,7 @@ export default function TelaCadQuarto() {
     if (Quarto === QUARTO.listagem) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="GERENCIAR QUARTOS" />
                 <TabelaQuartos exibirQuarto={setQuarto}
                     dadosQuarto={listaQuartos}
@@ -91,7 +91,7 @@ export default function TelaCadQuarto() {
     else if (Quarto === QUARTO.cadastro) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="CADASTRAR QUARTOS" />
                 <FormCADQuarto exibirQuarto={setQuarto} escolheBusca={setBusca}/>
                 <RodapeLogado />
@@ -102,7 +102,7 @@ export default function TelaCadQuarto() {
     else if (Quarto === QUARTO.atualizar) {
         return (
             <div>
-                <Menu />
+                <MenuAtendente />
                 <Cabecalho titulopagina="ATUALIZAR QUARTOS" />
                 <FormATUQuarto exibirQuarto={setQuarto} listaQuarto={atualizaQuarto} escolheBusca={setBusca}/>
                 <RodapeLogado />
