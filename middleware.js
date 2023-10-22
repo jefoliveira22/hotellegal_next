@@ -63,5 +63,5 @@ export default function middleware(request) {
 };
 
 export const config = {
-    matcher: ['/', '/atendentes', '/auxiliares', '/hospedes', '/gerentes'],
+    matcher: ['/', '/atendentes/:path*', '/auxiliares/:path*', '/hospedes/:path*', '/gerentes/:path*'],
 }

@@ -15,34 +15,38 @@ export default function HomeSection(props) {
         setIndex(selectedIndex);
     };
 
-    const logincpf = useRef("");
+    const login = useRef("");
     const senha = useRef("");
 
     function validarDados() {
-        fetch(ipBackend + 'funcionario/' + logincpf.current.value,
+        fetch(ipBackend + 'funcionario/login/' + login.current.value,
             {
                 method: "GET"
             }).then((resposta) => {
                 return resposta.json()
             }).then((dados) => {
-                if (dados[0].usuario.nome === logincpf.current.value && dados[0].senha === senha.current.value) {
+                if (dados[0].usuario.email === login.current.value && dados[0].senha === senha.current.value) {
                     if (dados[0].usuario.tipo_usuario === "gerente") {
                         document.cookie = "hotelLegal=authGerente";
+                        document.cookie = "username=" + dados[0].usuario.nome;
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.gerente);
                     }
                     else if (dados[0].usuario.tipo_usuario === "atendente") {
                         document.cookie = "hotelLegal=authAtendente";
+                        document.cookie = "username=" + dados[0].usuario.nome;
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.atendente);
                     }
                     else if (dados[0].usuario.tipo_usuario === "auxiliar") {
                         document.cookie = "hotelLegal=authAuxiliar";
+                        document.cookie = "username=" + dados[0].usuario.nome;
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.auxiliar);
                     }
                     else if (dados[0].usuario.tipo_usuario === "hospede") {
                         document.cookie = "hotelLegal=authHospede";
+                        document.cookie = "username=" + dados[0].usuario.nome;
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.hospede);
                     }
@@ -103,9 +107,9 @@ export default function HomeSection(props) {
                                 <Form.Label className="m-auto me-1"><b>Usuário</b></Form.Label>
                                 <Form.Control
                                     type="text"
-                                    id="Logincpf"
-                                    name="Logincpf"
-                                    ref={logincpf}
+                                    id="login"
+                                    name="login"
+                                    ref={login}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3 d-flex align-items-center">
