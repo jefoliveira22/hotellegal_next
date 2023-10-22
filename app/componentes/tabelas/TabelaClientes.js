@@ -110,12 +110,13 @@ export default function TabelaClientes(props) {
                 <tbody>
                     {
                         listaDados.map((item) => {
+                            let dataNasc = new Date(item.datanasc);
                             return (
                                 <tr key={item.usuario.usuario_id}>
                                     <td>{item.usuario.usuario_id}</td>
                                     <td>{item.usuario.nome}</td>
                                     <td>{item.cpf}</td>
-                                    <td>{item.datanasc}</td>
+                                    <td>{dataNasc.toLocaleDateString()}</td>
                                     <td>{item.sexo}</td>
                                     <td>{item.usuario.email}</td>
                                     <td>{item.usuario.endereco}</td>
