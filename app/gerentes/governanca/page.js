@@ -3,10 +3,7 @@ import Menu from "@/app/componentes/templates/Menu.js";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
 import CAMAREIRO from "@/app/componentes/estados/useCamareiro.js";
 import { useState, useEffect } from "react";
-import TelaCAMHome from "@/app/componentes/formularios/CAMHome.js";
-import TabelaCamareiro from "@/app/componentes/tabelas/TabelaCamareiro.js";
 import ipBackend from "@/app/componentes/IPBackend.js";
-import TelaCADCamareiro from "@/app/componentes/formularios/Camareiro.js";
 import TabelaATVCamareiro from "@/app/componentes/tabelas/TabelaAtvCamareiro.js";
 import TelaCADATVCamareiro from "@/app/componentes/formularios/ATVCamareiro.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
@@ -14,47 +11,19 @@ import confirmaGravação from "@/app/componentes/alertas/Gravacao.js";
 import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
 
-export default function TelaGovernanca(props) {
+export default function TelaGovernanca() {
 
-    const [estadoTela, setEstadoTela] = useState(CAMAREIRO.home);
-    const [camareiros, setCamareiros] = useState([]);
-    const [atualizarCamareiro, setAtualizaCamareiro] = useState([]);
-    const [busca, setBusca] = useState(true);
+    const [estadoTela, setEstadoTela] = useState(CAMAREIRO.listaatv);
     const [valorBusca, setValorBusca] = useState([]);
-    const [buscaCamareiro, setBuscaCamareiro] = useState(true);
     const [atvCamareiros, setAtvCamareiros] = useState([]);
     const [atualizarATVCamareiro, setAtualizaATVCamareiro] = useState([]);
     const [buscaATV, setBuscaATV] = useState(true);
 
     useEffect(() => {
-        if (buscaCamareiro) {
-            if (busca) {
-                fetch(ipBackend + 'camareiro',
-                {method: "GET"
-                }).then((resposta) => {
-                    return resposta.json()
-                }).then((dados) => {
-                    setCamareiros(dados);
-                }).catch((erro) => {
-                    alertaErro(erro);
-                });
-            }
-            else {
-                fetch(ipBackend + 'camareiro/' +  valorBusca,
-                {method: "GET"
-                }).then((resposta) => {
-                    return resposta.json()
-                }).then((dados) => {
-                    setCamareiros(dados);
-                }).catch((erro) => {
-                    alertaErro(erro);
-                });
-            }
-        }
-        else {
-            if (buscaATV) {
-                fetch(ipBackend + 'atvcamareiro',
-                {method: "GET"
+        if (buscaATV) {
+            fetch(ipBackend + 'atvcamareiro',
+                {
+                    method: "GET"
                 }).then((resposta) => {
                     return resposta.json()
                 }).then((dados) => {
@@ -62,10 +31,11 @@ export default function TelaGovernanca(props) {
                 }).catch((erro) => {
                     alertaErro(erro);
                 });
-            }
-            else {
-                fetch(ipBackend + 'atvcamareiro/' +  valorBusca,
-                {method: "GET"
+        }
+        else {
+            fetch(ipBackend + 'atvcamareiro/' + valorBusca,
+                {
+                    method: "GET"
                 }).then((resposta) => {
                     return resposta.json()
                 }).then((dados) => {
@@ -73,72 +43,8 @@ export default function TelaGovernanca(props) {
                 }).catch((erro) => {
                     alertaErro(erro);
                 });
-            }
         }
-    })
-
-    function defineTelaBusca(estado) {
-        if (estado) {
-            setBuscaCamareiro(true);
-            setEstadoTela(CAMAREIRO.listacam);
-        }
-        else {
-            setBuscaCamareiro(false);
-            setEstadoTela(CAMAREIRO.listaatv);
-        }
-    }
-
-    function cadastrarCamareiros(camareiros) {
-        fetch(ipBackend + "camareiro", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(camareiros)
-        }).then((resposta) => {
-            return resposta.json();
-        }).then((dados) => {
-            confirmaGravação(dados);
-        }).catch((erro) => {
-            alertaErro(erro);
-        });
-    } 
-
-    function atualizarCamareiros(camareiros) {
-        fetch(ipBackend + "camareiro", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(camareiros)
-        }).then((resposta) => {
-            return resposta.json();
-        }).then((dados) => {
-            confirmaAtualização(dados);
-            setEstadoTela(CAMAREIRO.listacam);
-        }).catch((erro) => {
-            alertaErro(erro);
-        });
-    }
-
-    function prepararAtualizacaoCamareiro(camareiro) {
-        setAtualizaCamareiro(camareiro);
-        setEstadoTela(CAMAREIRO.atualizacam);
-    }
-
-    function removerCamareiro(camareiro) {
-        const CPF = { cpf_cam: camareiro.cpf_cam }
-        fetch(ipBackend + 'camareiro',
-            {
-                method: "DELETE",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(CPF)
-            }).then((resposta) => {
-                if (resposta.ok) {
-                    alert("Camareiro excluído com sucesso!")
-                }
-                else {
-                    alert("Camareiro possui atividades cadastradas. Remova antes de excluir.")
-                }
-            });
-        setEstadoTela(CAMAREIRO.listacam);
-    }
+    }, [])
 
     function cadastrarATVCamareiros(atvcamareiros) {
         fetch(ipBackend + "atvcamareiro", {
@@ -192,81 +98,28 @@ export default function TelaGovernanca(props) {
         setEstadoTela(CAMAREIRO.listaatv);
     }
 
-
-    if (estadoTela === CAMAREIRO.home) {
+    if (estadoTela === CAMAREIRO.listaatv) {
         return (
             <div>
                 <Menu />
-                <Cabecalho titulopagina="GOVERNANÇA"/>
-                <TelaCAMHome mudaTela={defineTelaBusca}/>
-                <RodapeLogado />
-            </div>
-        );
-    }
-
-    else if (estadoTela === CAMAREIRO.listacam) {
-        return (
-            <div>
-                <Menu />
-                <Cabecalho titulopagina="CAMAREIROS CADASTRADOS"/>
-                <TabelaCamareiro mudaTela={setEstadoTela} 
-                                 listaCamareiros={camareiros}
-                                 exeAtualizacao={prepararAtualizacaoCamareiro}
-                                 exeRemocao={removerCamareiro}
-                                 cpfBusca={setValorBusca}
-                                 modoBusca={setBusca}
-                                 /> 
-                <RodapeLogado />
-            </div>
-        );
-    }
-
-    else if (estadoTela === CAMAREIRO.listaatv) {
-        return (
-            <div>
-                <Menu />
-                <Cabecalho titulopagina="ATIVIDADES CADASTRADAS"/>
+                <Cabecalho titulopagina="ATIVIDADES CADASTRADAS" />
                 <TabelaATVCamareiro mudaTela={setEstadoTela}
-                                    listaAtvCamareiros={atvCamareiros}
-                                    exeAtualizacaoATV={prepararAtualizacaoATVCamareiro}
-                                    exeRemocao={removerATVCamareiro}
-                                    cpfBusca={setValorBusca}
-                                    modoBusca={setBuscaATV}/>
+                    listaAtvCamareiros={atvCamareiros}
+                    exeAtualizacaoATV={prepararAtualizacaoATVCamareiro}
+                    exeRemocao={removerATVCamareiro}
+                    cpfBusca={setValorBusca}
+                    modoBusca={setBuscaATV} />
                 <RodapeLogado />
             </div>
         );
     }
 
-    else if (estadoTela === CAMAREIRO.cadastracam) {
-        return (
-            <div>
-                <Menu />
-                <Cabecalho titulopagina="CADASTRAR CAMAREIRO"/>
-                <TelaCADCamareiro mudaTela={setEstadoTela} exCad={cadastrarCamareiros}/>
-                <RodapeLogado />
-            </div>
-        );
-    }
-    
     else if (estadoTela === CAMAREIRO.cadastraatv) {
         return (
             <div>
                 <Menu />
-                <Cabecalho titulopagina="CADASTRAR ATIVIDADE"/>
-                <TelaCADATVCamareiro mudaTela={setEstadoTela} exCadATV={cadastrarATVCamareiros}/>
-                <RodapeLogado />
-            </div>
-        );
-    }
-
-    else if (estadoTela === CAMAREIRO.atualizacam) {
-        return (
-            <div>
-                <Menu />
-                <Cabecalho titulopagina="ATUALIZAR CAMAREIRO"/>
-                <TelaCADCamareiro mudaTela={setEstadoTela} 
-                                  atuCamareiros={atualizarCamareiro}
-                                  exAtu={atualizarCamareiros}/>
+                <Cabecalho titulopagina="CADASTRAR ATIVIDADE" />
+                <TelaCADATVCamareiro mudaTela={setEstadoTela} exCadATV={cadastrarATVCamareiros} />
                 <RodapeLogado />
             </div>
         );
@@ -276,10 +129,10 @@ export default function TelaGovernanca(props) {
         return (
             <div>
                 <Menu />
-                <Cabecalho titulopagina="ATUALIZAR ATIVIDADE"/>
-                <TelaCADATVCamareiro mudaTela={setEstadoTela} 
-                                     atuATVCamareiros={atualizarATVCamareiro}
-                                     exAtuATV={atualizarATVCamareiros}/>
+                <Cabecalho titulopagina="ATUALIZAR ATIVIDADE" />
+                <TelaCADATVCamareiro mudaTela={setEstadoTela}
+                    atuATVCamareiros={atualizarATVCamareiro}
+                    exAtuATV={atualizarATVCamareiros} />
                 <RodapeLogado />
             </div>
         );

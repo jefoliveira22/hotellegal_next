@@ -3,7 +3,7 @@ import Cabecalho from './componentes/templates/Cabecalho.js'
 import Rodape from './componentes/templates/Rodape.js'
 import HomeSection from './componentes/templates/Home.js'
 import LOGIN from './componentes/estados/useLogin.js'
-import { StrictMode, useState } from 'react'
+import { useState } from 'react'
 import PERMISSAO from './componentes/estados/usePermissao.js'
 
 
@@ -14,11 +14,11 @@ export default function Home() {
 
   if (Login === LOGIN.deslogado) {
     return (
-      <StrictMode>
+      <div>
         <Cabecalho />
         <HomeSection estadoLogin={setLogin} estadoPermissao={setPermissao}/>
         <Rodape />
-      </StrictMode>
+      </div>
     )
   }
 

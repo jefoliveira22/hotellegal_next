@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import DESPESA from '../estados/useDespesa.js';
 import ipBackend from '../IPBackend.js';
 import BarraBusca from '../buscas/Barrabusca.js';
+import CaixaSelecao from '../buscas/CaixaSelecao.js';
 import confirmaGravação from '../alertas/Gravacao.js';
 import alertaErro from '../alertas/Erro.js';
 
@@ -27,25 +28,25 @@ export default function FormCADDespesa(props) {
         });
     }
 
-    useEffect (() => {
-        fetch(ipBackend + 'tdespesa',
-        {
-            method: "GET"
-        }).then((resposta) => {
-            return resposta.json()
-        }).then((dados) => {
-            setDados(dados)
-        }).catch((erro) => {
-            alertaErro(erro);
-        });
-    });
+    useEffect(() => {
+        fetch(ipBackend + 'fornecedor',
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                setDadosFornecedor(dados)
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }, []);
 
     const [formValidado, setFormValidado] = useState(false);
-    const [dados, setDados] = useState([]);
+    const [dadosFornecedor, setDadosFornecedor] = useState([]);
     const [clienteSelecionado, setClienteSelecionado] = useState([]);
+    const [fornecedorSelecionado, setFornecedorSelecionado] = useState([]);
     const nome_desp = useRef("");
     const nfe = useRef("");
-    const fornecedor = useRef("");
     const data_comp = useRef("");
     const valortotal = useRef("");
     const obs = useRef("");
@@ -56,7 +57,7 @@ export default function FormCADDespesa(props) {
             cod_tipo_despesa: clienteSelecionado.cod_tipo_desp,
             nome_desp: nome_desp.current.value,
             nfe: nfe.current.value,
-            fornecedor: fornecedor.current.value,
+            fornecedor: fornecedorSelecionado.fornecedor_id,
             data_comp: data_comp.current.value,
             valortotal: valortotal.current.value,
             obs: obs.current.value,
@@ -90,35 +91,35 @@ export default function FormCADDespesa(props) {
         <Container className="mb-3 mt-3 text-center">
             <Row className="mt-2 p-2">
                 <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
-                    <Row className='mt-2 mb-2'>
+                    <Row className='mt-2'>
                         <Col>
                             <Form.Group>
-                                <Form.Label>Tipo da despesa</Form.Label>
+                                <Form.Label>Fornecedor</Form.Label>
                                 <InputGroup hasValidation>
-                                    <BarraBusca placeHolder={'Selecione o tipo de despesa'}
-                                        dados={dados}
-                                        campoChave={"cod_tipo_desp"}
-                                        campoBusca={"descr"}
-                                        funcaoSelecao={setClienteSelecionado}
-                                        valor={""}/>
+                                    <BarraBusca placeHolder={'Selecione o fornecedor'}
+                                        dados={dadosFornecedor}
+                                        campoChave={"cnpj"}
+                                        campoBusca={"razao_social"}
+                                        funcaoSelecao={setFornecedorSelecionado}
+                                        valor={""} />
                                 </InputGroup>
                                 <Form.Control.Feedback type="invalid">
-                                        Informe a descrição da nota
+                                    Informe o fornecedor da despesa
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group>
-                                <Form.Label>Descrição</Form.Label>
+                                <Form.Label>Tipo da despesa</Form.Label>
                                 <InputGroup hasValidation>
-                                    <Form.Control
-                                        id="nome_desp"
-                                        name="nome_desp"
-                                        type="text"
-                                        ref={nome_desp}
+                                    <CaixaSelecao
+                                        enderecoFonteDados="http://localhost:4000/tdespesa"
+                                        campoChave="cod_tipo_desp"
+                                        campoExibicao="descr"
+                                        funcaoSelecao={setClienteSelecionado}
                                         required />
                                     <Form.Control.Feedback type="invalid">
-                                        Informe a descrição da nota
+                                        Informe o tipo de despesa.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -141,16 +142,18 @@ export default function FormCADDespesa(props) {
                     <Row>
                         <Col>
                             <Form.Group>
-                                <Form.Label>Fornecedor</Form.Label>
-                                <Form.Control
-                                    id="fornecedor"
-                                    name="fornecedor"
-                                    type="text"
-                                    ref={fornecedor}
-                                    required />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe o fornecedor
-                                </Form.Control.Feedback>
+                                <Form.Label>Descrição</Form.Label>
+                                <InputGroup hasValidation>
+                                    <Form.Control
+                                        id="nome_desp"
+                                        name="nome_desp"
+                                        type="text"
+                                        ref={nome_desp}
+                                        required />
+                                    <Form.Control.Feedback type="invalid">
+                                        Informe a descrição da nota
+                                    </Form.Control.Feedback>
+                                </InputGroup>
                             </Form.Group>
                         </Col>
                         <Col>

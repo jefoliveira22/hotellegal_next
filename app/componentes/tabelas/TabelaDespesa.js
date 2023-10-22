@@ -76,7 +76,7 @@ export default function TabelaDespesas(props) {
                                     <td>{despesas.cod_tipo_despesa}</td>
                                     <td>{despesas.nome_desp}</td>
                                     <td>{despesas.nfe}</td>
-                                    <td>{despesas.fornecedor}</td>
+                                    <td>{despesas.fornecedor.razao_social}</td>
                                     <td>{data.toLocaleDateString()}</td>
                                     <td>{despesas.valortotal}</td>
                                     <td>{despesas.obs}</td>
