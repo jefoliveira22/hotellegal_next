@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import RESERVA from '../estados/useReserva.js';
 import ipBackend from '../IPBackend.js';
 import CaixaSelecao from '../buscas/CaixaSelecao.js';
-import BarraBusca from '../buscas/Barrabusca.js';
+import BarraBuscaREV from '../buscas/barrabuscaREV.js';
 import confirmaGravação from '../alertas/Gravacao.js';
 import alertaErro from '../alertas/Erro.js';
 
@@ -29,7 +29,7 @@ export default function FormREVHospede(props) {
     }
 
     useEffect(() => {
-        fetch(ipBackend + 'hospede',
+        fetch(ipBackend + 'cliente',
             {
                 method: "GET"
             }).then((resposta) => {
@@ -62,15 +62,15 @@ export default function FormREVHospede(props) {
             canc_free: canc_free.current.value,
             ativo: "Sim",
             hospede: {
-                nome: hospedeSelecionado.nome,
+                nome: hospedeSelecionado.usuario.nome,
                 cpf: hospedeSelecionado.cpf,
-                email: hospedeSelecionado.email,
-                telefone: hospedeSelecionado.telefone,
+                email: hospedeSelecionado.usuario.email,
+                telefone: hospedeSelecionado.usuario.telefone,
                 datanasc: hospedeSelecionado.datanasc,
-                endereco: hospedeSelecionado.endereco,
-                cidade: hospedeSelecionado.cidade,
-                estado: hospedeSelecionado.estado,
-                cep: hospedeSelecionado.cep,
+                endereco: hospedeSelecionado.usuario.endereco,
+                cidade: hospedeSelecionado.usuario.cidade,
+                estado: hospedeSelecionado.usuario.estado,
+                cep: hospedeSelecionado.usuario.cep,
                 nacionalidade: hospedeSelecionado.nacionalidade,
                 profissao: hospedeSelecionado.profissao,
                 sexo: hospedeSelecionado.sexo,
@@ -109,7 +109,7 @@ export default function FormREVHospede(props) {
                             <Form.Group>
                                 <Form.Label>Hospede</Form.Label>
                                 <InputGroup hasValidation>
-                                    <BarraBusca placeHolder={'Selecione o hospede'}
+                                    <BarraBuscaREV placeHolder={'Selecione o hospede'}
                                         dados={dados}
                                         campoChave={"cpf"}
                                         campoBusca={"nome"}
