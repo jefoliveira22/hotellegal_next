@@ -19,29 +19,29 @@ export default function HomeSection(props) {
     const senha = useRef("");
 
     function validarDados() {
-        fetch(ipBackend + 'login/' + logincpf.current.value,
+        fetch(ipBackend + 'funcionario/' + logincpf.current.value,
             {
                 method: "GET"
             }).then((resposta) => {
                 return resposta.json()
             }).then((dados) => {
-                if (dados[0].usuario === logincpf.current.value && dados[0].senha === senha.current.value) {
-                    if (dados[0].tipo === "gerente") {
+                if (dados[0].usuario.nome === logincpf.current.value && dados[0].senha === senha.current.value) {
+                    if (dados[0].usuario.tipo_usuario === "gerente") {
                         document.cookie = "hotelLegal=authGerente";
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.gerente);
                     }
-                    else if (dados[0].tipo === "atendente") {
+                    else if (dados[0].usuario.tipo_usuario === "atendente") {
                         document.cookie = "hotelLegal=authAtendente";
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.atendente);
                     }
-                    else if (dados[0].tipo === "auxiliar") {
+                    else if (dados[0].usuario.tipo_usuario === "auxiliar") {
                         document.cookie = "hotelLegal=authAuxiliar";
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.auxiliar);
                     }
-                    else if (dados[0].tipo === "hospede") {
+                    else if (dados[0].usuario.tipo_usuario === "hospede") {
                         document.cookie = "hotelLegal=authHospede";
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.hospede);
