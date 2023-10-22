@@ -14,12 +14,20 @@ export default function CADFuncionario(props) {
 
     useEffect(() => { /* AO CHAMAR A PAGINA, O USEEFFECT VAI VERIFICAR SE EXISTE DADOS PARA ATUALIZAR, SE SIM VAI PREENCHER OS CAMPOS */
         if (props.atualizaFuncionario) {
-            nome.current.value = props.atualizaFuncionario.usuario.nome
-            email.current.value = props.atualizaFuncionario.usuario.email
+            sexo.current.value = props.atualizaFuncionario.sexo
+            datanasc.current.value = props.atualizaFuncionario.datanasc
             cargo.current.value = props.atualizaFuncionario.cargo
             salario.current.value = props.atualizaFuncionario.salario
+            nis.current.value = props.atualizaFuncionario.nis
+            senha.current.value = props.atualizaFuncionario.senha
+            nome.current.value = props.atualizaFuncionario.usuario.nome
+            email.current.value = props.atualizaFuncionario.usuario.email
+            endereco.current.value = props.atualizaFuncionario.usuario.endereco
+            telefone.current.value = props.atualizaFuncionario.usuario.telefone
+            cidade.current.value = props.atualizaFuncionario.usuario.cidade
+            estado.current.value = props.atualizaFuncionario.usuario.estado
+            cep.current.value = props.atualizaFuncionario.usuario.cep
             tipo_usuario.current.value = props.atualizaFuncionario.usuario.tipo_usuario
-            senha.current.value = props.atualizaFuncionario.usuario.senha
         }
     }, []);
 
@@ -29,18 +37,34 @@ export default function CADFuncionario(props) {
     const salario = useRef("");
     const tipo_usuario = useRef("");
     const senha = useRef("");
+    const endereco = useRef("");
+    const telefone = useRef("");
+    const cidade = useRef("");
+    const estado = useRef("");
+    const cep = useRef("");
+    const nis = useRef("");
+    const sexo = useRef("");
+    const datanasc = useRef("");
 
     function preparaJSON() {  /* FUNÇÃO QUE MONTA O JSON QUE SERÁ ENVIADO PARA O BACKEND */
         if (dadosAtualização) {
             const funcionario = {
                 funcionario_id: props.atualizaFuncionario.funcionario_id,
+                sexo: sexo.current.value,
+                datanasc: datanasc.current.value,
                 cargo: cargo.current.value,
                 salario: salario.current.value,
+                nis: nis.current.value,
+                senha: senha.current.value,
                 usuario: {
                     usuario_id: props.atualizaFuncionario.usuario.usuario_id,
                     nome: nome.current.value,
                     email: email.current.value,
-                    senha: senha.current.value,
+                    endereco: endereco.current.value,
+                    telefone: telefone.current.value,
+                    cidade: cidade.current.value,
+                    estado: estado.current.value,
+                    cep: cep.current.value,
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
@@ -48,12 +72,20 @@ export default function CADFuncionario(props) {
         }
         else {
             const funcionario = {
+                sexo: sexo.current.value,
+                datanasc: datanasc.current.value,
                 cargo: cargo.current.value,
                 salario: salario.current.value,
+                nis: nis.current.value,
+                senha: senha.current.value,
                 usuario: {
                     nome: nome.current.value,
                     email: email.current.value,
-                    senha: senha.current.value,
+                    endereco: endereco.current.value,
+                    telefone: telefone.current.value,
+                    cidade: cidade.current.value,
+                    estado: estado.current.value,
+                    cep: cep.current.value,
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
@@ -81,8 +113,8 @@ export default function CADFuncionario(props) {
     return (
         <Container className="mb-3 mt-3 text-center">
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
-                <Row className='mt-2 mb-2'>
-                    <Col>
+                <Row className='mt-2'>
+                    <Col md={4}>
                         <Form.Group>
                             <Form.Label>Nome</Form.Label>
                             <Form.Control
@@ -104,7 +136,7 @@ export default function CADFuncionario(props) {
                                 id="email"
                                 name="email"
                                 required
-                                type="text"
+                                type="email"
                                 ref={email}
                             />
                             <Form.Control.Feedback type="invalid">
@@ -112,6 +144,130 @@ export default function CADFuncionario(props) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Data de Nascimento</Form.Label>
+                            <Form.Control
+                                id="datanasc"
+                                name="datanasc"
+                                required
+                                type="date"
+                                ref={datanasc}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Informe a data de nascimento
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Gênero</Form.Label>
+                            <Form.Select
+                                id="sexo"
+                                name="sexo"
+                                required
+                                ref={sexo}>
+                                <option></option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe o gênero
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className='mt-2'>
+                    <Col md={4}>
+                        <Form.Group>
+                            <Form.Label>Endereço</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='endereco'
+                                    name='endereco'
+                                    type="text"
+                                    required
+                                    ref={endereco}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o endereço
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Telefone</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='telefone'
+                                    name='telefone'
+                                    type="tel"
+                                    required
+                                    ref={telefone}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o telefone
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Cidade</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='cidade'
+                                    name='cidade'
+                                    type="text"
+                                    required
+                                    ref={cidade}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe a cidade
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col md={1}>
+                        <Form.Group>
+                            <Form.Label>UF</Form.Label>
+                            <Form.Select
+                                id="estado"
+                                name="estado"
+                                required
+                                ref={estado}>
+                                <option></option>
+                                <option value="SP">SP</option>
+                                <option value="PR">PR</option>
+                                <option value="RJ">RJ</option>
+                                <option value="MG">MG</option>
+                                <option value="MT">MT</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe a UF
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>CEP</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='cep'
+                                    name='cep'
+                                    type="text"
+                                    required
+                                    ref={cep}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o CEP
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className='mt-2 mb-2'>
                     <Col>
                         <Form.Group>
                             <Form.Label>Cargo</Form.Label>
@@ -136,7 +292,7 @@ export default function CADFuncionario(props) {
                                 <Form.Control
                                     id='salario'
                                     name='salario'
-                                    type="text"
+                                    type="number"
                                     required
                                     ref={salario}
                                 />
@@ -146,23 +302,40 @@ export default function CADFuncionario(props) {
                             </InputGroup>
                         </Form.Group>
                     </Col>
-                </Row>
-                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>NIS</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='nis'
+                                    name='nis'
+                                    type="text"
+                                    required
+                                    ref={nis}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o NIS
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
                     <Col>
                         <Form.Group>
                             <Form.Label>Permissão de Acesso</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    id='tipo_usuario'
-                                    name='tipo_usuario'
-                                    type="text"
-                                    required
-                                    ref={tipo_usuario}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe a permissão de acesso
-                                </Form.Control.Feedback>
-                            </InputGroup>
+                            <Form.Select
+                                id="tipo_usuario"
+                                name="tipo_usuario"
+                                required
+                                ref={tipo_usuario}>
+                                <option></option>
+                                <option value="gerente">Gerente</option>
+                                <option value="atendente">Atendente</option>
+                                <option value="auxiliar">Auxiliar</option>
+                                <option value="hospede">Cliente</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe a permissão de acesso
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col>

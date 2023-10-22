@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, use } from 'react';
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -14,12 +14,20 @@ export default function CADCliente(props) {
 
     useEffect(() => { /* AO CHAMAR A PAGINA, O USEEFFECT VAI VERIFICAR SE EXISTE DADOS PARA ATUALIZAR, SE SIM VAI PREENCHER OS CAMPOS */
         if (props.atualizaCliente) {
+            cpf.current.value = props.atualizaCliente.cpf
+            datanasc.current.value = props.atualizaCliente.datanasc
+            nacionalidade.current.value = props.atualizaCliente.nacionalidade
+            profissao.current.value = props.atualizaCliente.profissao
+            sexo.current.value = props.atualizaCliente.sexo
+            senha.current.value = props.atualizaCliente.senha
             nome.current.value = props.atualizaCliente.usuario.nome
             email.current.value = props.atualizaCliente.usuario.email
-            endereco.current.value = props.atualizaCliente.endereco
-            telefone.current.value = props.atualizaCliente.telefone
+            endereco.current.value = props.atualizaCliente.usuario.endereco
+            telefone.current.value = props.atualizaCliente.usuario.telefone
+            cidade.current.value = props.atualizaCliente.usuario.cidade
+            estado.current.value = props.atualizaCliente.usuario.estado
+            cep.current.value = props.atualizaCliente.usuario.cep
             tipo_usuario.current.value = props.atualizaCliente.usuario.tipo_usuario
-            senha.current.value = props.atualizaCliente.usuario.senha
         }
     }, []);
 
@@ -29,18 +37,34 @@ export default function CADCliente(props) {
     const telefone = useRef("");
     const tipo_usuario = useRef("");
     const senha = useRef("");
+    const cpf = useRef("");
+    const datanasc = useRef("");
+    const nacionalidade = useRef("");
+    const profissao = useRef("");
+    const sexo = useRef("");
+    const cidade = useRef("");
+    const estado = useRef("");
+    const cep = useRef("");
 
     function preparaJSON() {  /* FUNÇÃO QUE MONTA O JSON QUE SERÁ ENVIADO PARA O BACKEND */
         if (dadosAtualização) {
             const cliente = {
                 cliente_id: props.atualizaCliente.cliente_id,
-                endereco: endereco.current.value,
-                telefone: telefone.current.value,
+                cpf: cpf.current.value,
+                datanasc: datanasc.current.value,
+                nacionalidade: nacionalidade.current.value,
+                profissao: profissao.current.value,
+                sexo: sexo.current.value,
+                senha: senha.current.value,
                 usuario: {
                     usuario_id: props.atualizaCliente.usuario.usuario_id,
                     nome: nome.current.value,
                     email: email.current.value,
-                    senha: senha.current.value,
+                    endereco: endereco.current.value,
+                    telefone: telefone.current.value,
+                    cidade: cidade.current.value,
+                    estado: estado.current.value,
+                    cep: cep.current.value,
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
@@ -48,12 +72,20 @@ export default function CADCliente(props) {
         }
         else {
             const cliente = {
-                endereco: endereco.current.value,
-                telefone: telefone.current.value,
+                cpf: cpf.current.value,
+                datanasc: datanasc.current.value,
+                nacionalidade: nacionalidade.current.value,
+                profissao: profissao.current.value,
+                sexo: sexo.current.value,
+                senha: senha.current.value,
                 usuario: {
                     nome: nome.current.value,
                     email: email.current.value,
-                    senha: senha.current.value,
+                    endereco: endereco.current.value,
+                    telefone: telefone.current.value,
+                    cidade: cidade.current.value,
+                    estado: estado.current.value,
+                    cep: cep.current.value,
                     tipo_usuario: tipo_usuario.current.value
                 }
             }
@@ -82,7 +114,7 @@ export default function CADCliente(props) {
         <Container className="mb-3 mt-3 text-center">
             <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                 <Row className='mt-2 mb-2'>
-                    <Col>
+                    <Col md={4}>
                         <Form.Group>
                             <Form.Label>Nome</Form.Label>
                             <Form.Control
@@ -97,6 +129,144 @@ export default function CADCliente(props) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>CPF</Form.Label>
+                            <Form.Control
+                                id="cpf"
+                                name="cpf"
+                                required
+                                type="text"
+                                ref={cpf}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Informe o cpf
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Data de Nascimento</Form.Label>
+                            <Form.Control
+                                id="datanasc"
+                                name="datanasc"
+                                required
+                                type="date"
+                                ref={datanasc}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Informe a data de nascimento
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Profissão</Form.Label>
+                            <Form.Control
+                                id="profissao"
+                                name="profissao"
+                                required
+                                type="text"
+                                ref={profissao}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Informe a profissao
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+
+                </Row>
+                <Row className='mt-2'>
+                    <Col md={4}>
+                        <Form.Group>
+                            <Form.Label>Endereço</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='endereco'
+                                    name='endereco'
+                                    type="text"
+                                    required
+                                    ref={endereco}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o endereço
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Telefone</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='telefone'
+                                    name='telefone'
+                                    type="tel"
+                                    required
+                                    ref={telefone}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o telefone
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Cidade</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='cidade'
+                                    name='cidade'
+                                    type="text"
+                                    required
+                                    ref={cidade}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe a cidade
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                    <Col md={1}>
+                        <Form.Group>
+                            <Form.Label>UF</Form.Label>
+                            <Form.Select
+                                id="estado"
+                                name="estado"
+                                required
+                                ref={estado}>
+                                <option></option>
+                                <option value="SP">SP</option>
+                                <option value="PR">PR</option>
+                                <option value="RJ">RJ</option>
+                                <option value="MG">MG</option>
+                                <option value="MT">MT</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe a UF
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>CEP</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    id='cep'
+                                    name='cep'
+                                    type="text"
+                                    required
+                                    ref={cep}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Informe o CEP
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className='mt-2 mb-2'>
                     <Col>
                         <Form.Group>
                             <Form.Label>E-mail</Form.Label>
@@ -114,55 +284,50 @@ export default function CADCliente(props) {
                     </Col>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Endereço</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    id='endereco'
-                                    name='endereco'
-                                    type="text"
-                                    required
-                                    ref={endereco}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe o endereço do cliente
-                                </Form.Control.Feedback>
-                            </InputGroup>
+                            <Form.Label>Gênero</Form.Label>
+                            <Form.Select
+                                id="sexo"
+                                name="sexo"
+                                required
+                                ref={sexo}>
+                                <option></option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe o gênero
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Telefone</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    id='telefone'
-                                    name='telefone'
-                                    type="text"
-                                    required
-                                    ref={telefone}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe o telefone do cliente
-                                </Form.Control.Feedback>
-                            </InputGroup>
+                            <Form.Label>Nacionalidade</Form.Label>
+                            <Form.Control
+                                id="nacionalidade"
+                                name="nacionalidade"
+                                required
+                                type="text"
+                                ref={nacionalidade}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Informe a nacionalidade
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-                </Row>
-                <Row>
                     <Col>
                         <Form.Group>
                             <Form.Label>Permissão de Acesso</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    id='tipo_usuario'
-                                    name='tipo_usuario'
-                                    type="text"
-                                    required
-                                    ref={tipo_usuario}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Informe a permissão de acesso do cliente
-                                </Form.Control.Feedback>
-                            </InputGroup>
+                            <Form.Select
+                                id="tipo_usuario"
+                                name="tipo_usuario"
+                                disabled
+                                required
+                                ref={tipo_usuario}>
+                                <option value="hospede">Cliente</option>
+                            </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Informe a permissão de acesso
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col>
