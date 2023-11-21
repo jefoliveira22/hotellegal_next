@@ -47,10 +47,10 @@ export default function RodapeLogado() {
 
     return (
         <footer className="bg-secondary p-1 d-flex fixarRodapeLogado">
-            <div className="d-flex justify-content-start tamanhoUser pt-1">
+            <div className="d-flex justify-content-start tamanhoUser pt-1" id="teste1">
                 <h6 className="letraRodape">Usuário: {cookieNome}</h6>
             </div>
-            <div className="d-flex justify-content-end tamanhoSair">
+            <div className="d-flex justify-content-end tamanhoSair" id="teste2">
                 <button type="button" className="btn btn-danger btn-sm" onClick={apagarCookie}>Sair</button>
             </div>
         </footer>

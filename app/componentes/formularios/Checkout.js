@@ -3,6 +3,7 @@ import { Container, Card, Button, Row, Form, Col, Accordion, ListGroup } from 'r
 import ipBackend from '../IPBackend.js';
 import alertaErro from '../alertas/Erro.js';
 import confirmaAtualização from '../alertas/Atualizacao.js';
+import HOSPEDAGEM from '../estados/useHospedagem.js';
 
 
 export default function FormCheckout(props) {
@@ -88,7 +89,7 @@ export default function FormCheckout(props) {
         }).catch((erro) => {
             alertaErro(erro);
         });
-        props.voltar(true)
+        props.voltar(HOSPEDAGEM.ativa)
     };
 
     return (
@@ -182,7 +183,7 @@ export default function FormCheckout(props) {
                                     <hr />
                                     <Row className='text-center'>
                                         <Button className='me-2' variant="outline-success" onClick={encerrarHospedagem}>Pagar</Button>
-                                        <Button variant='outline-secondary' className='mt-2' onClick={() => { props.voltar(true) }} >Voltar</Button>
+                                        <Button variant='outline-secondary' className='mt-2' onClick={() => { props.voltar(HOSPEDAGEM.ativa) }} >Voltar</Button>
                                     </Row>
                                 </Form>
                             </Card.Text>

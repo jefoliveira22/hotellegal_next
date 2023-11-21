@@ -8,12 +8,15 @@ import ipBackend from "@/app/componentes/IPBackend.js";
 import confirmaAtualização from "@/app/componentes/alertas/Atualizacao.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado.js";
+import HOSPEDAGEM from "@/app/componentes/estados/useHospedagem";
+import RelatorioHospedagem from "@/app/componentes/tabelas/RelatorioHospedagem";
 
 export default function TelaCadHospdedagem() {
 
     const [hospedagem, setHospedagem] = useState([]);
-    const [estadoHospedagem, setEstadoHospedagem] = useState(true);
+    const [estadoHospedagem, setEstadoHospedagem] = useState(HOSPEDAGEM.ativa);
     const [checkout, setCheckout] = useState([]);
+    const [relatorio, setRelatorio] = useState([]);
 
     useEffect(() => {
         fetch(ipBackend + 'hospedagem',
@@ -37,13 +40,27 @@ export default function TelaCadHospdedagem() {
             return resposta.json();
         }).then((dados) => {
             confirmaAtualização(dados);
-            setEstadoHospedagem(true);
+            setEstadoHospedagem(HOSPEDAGEM.ativa);
         }).catch((erro) => {
             alertaErro(erro);
         });
     }
 
-    if (estadoHospedagem) {
+    function buscarRelatorio(periodo) {
+        fetch(ipBackend + "hospedagem/periodo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(periodo)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            setRelatorio(dados);
+        }).catch((erro) => {
+            alertaErro(erro);
+        });
+    }
+
+    if (estadoHospedagem === HOSPEDAGEM.ativa) {
         return (
             <div>
                 <Menu />
@@ -53,12 +70,24 @@ export default function TelaCadHospdedagem() {
             </div>
         )
     }
-    else {
+
+    else if (estadoHospedagem === HOSPEDAGEM.checkout){
         return (
             <div>
                 <Menu />
                 <Cabecalho titulopagina="PAGAMENTO" />
                 <FormCheckout dadosCheckout={checkout} execCheckout={encerrarHospedagem} voltar={setEstadoHospedagem} />
+                <RodapeLogado />
+            </div>
+        );
+    }
+
+    else if (estadoHospedagem === HOSPEDAGEM.consultas){
+        return (
+            <div>
+                <Menu />
+                <Cabecalho titulopagina="RELATÓRIOS DE HOSPEDAGENS" id="Cabecalho"/>
+                <RelatorioHospedagem dadosRelatorio={relatorio} pesquisar={buscarRelatorio} mudaTela={setEstadoHospedagem}/>
                 <RodapeLogado />
             </div>
         );
