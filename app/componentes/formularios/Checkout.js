@@ -4,6 +4,7 @@ import ipBackend from '../IPBackend.js';
 import alertaErro from '../alertas/Erro.js';
 import confirmaAtualização from '../alertas/Atualizacao.js';
 import HOSPEDAGEM from '../estados/useHospedagem.js';
+import moment from 'moment';
 
 
 export default function FormCheckout(props) {
@@ -33,7 +34,7 @@ export default function FormCheckout(props) {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-    });
+    }, []);
 
     const hospedagem = props.dadosCheckout;
     let dataini = new Date(hospedagem.data_ini);
@@ -70,12 +71,13 @@ export default function FormCheckout(props) {
 
     function encerrarHospedagem() {
         const valorfinal = calculaTotal().toFixed(2);
+        const dataAtual = moment().format('YYYY-MM-DD');
         fetch(ipBackend + "hospedagem", {
             method: "PUT", headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 id_hospedagem: hospedagem.id_hospedagem,
                 data_ini: dataini.toISOString().split('T')[0],
-                data_fim: datafim.toISOString().split('T')[0],
+                data_fim: dataAtual,
                 valor_tot: valorfinal,
                 h_ativo: "Não",
                 reserva: {

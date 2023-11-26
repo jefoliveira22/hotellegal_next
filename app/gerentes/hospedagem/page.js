@@ -29,7 +29,7 @@ export default function TelaCadHospdedagem() {
             }).catch((erro) => {
                 alertaErro(erro);
             });
-    }, [])
+    })
 
     function encerrarHospedagem(dadosHosp) {
         fetch(ipBackend + "hospedagem", {
@@ -86,7 +86,7 @@ export default function TelaCadHospdedagem() {
         return (
             <div>
                 <Menu />
-                <Cabecalho titulopagina="RELATÓRIOS DE HOSPEDAGENS" id="Cabecalho"/>
+                <Cabecalho titulopagina="RELATÓRIOS DE HOSPEDAGENS"/>
                 <RelatorioHospedagem dadosRelatorio={relatorio} pesquisar={buscarRelatorio} mudaTela={setEstadoHospedagem}/>
                 <RodapeLogado />
             </div>

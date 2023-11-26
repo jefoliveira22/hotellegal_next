@@ -3,7 +3,8 @@ const DESPESA = Object.freeze ({
     atualizar:"ATUALIZAR",
     listagem:"LISTAGEM",
     listatipodespesa:"LISTATIPODESPESA",
-    cadastrotipodespesa:"CADASTROTIPODESPESA"
+    cadastrotipodespesa:"CADASTROTIPODESPESA",
+    relatorio: "RELATORIO"
 })
 
 export default DESPESA;

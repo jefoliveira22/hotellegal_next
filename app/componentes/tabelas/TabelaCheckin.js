@@ -1,24 +1,16 @@
 import { Container, Button } from "react-bootstrap";
-import { Form, Navbar, Nav, Card, Row, Col } from "react-bootstrap";
-import { useRef } from "react";
+import { Navbar, Nav, Card, Row, Col } from "react-bootstrap";
 import CHECKIN from "../estados/useCheckin.js";
 import ipBackend from "../IPBackend.js";
 import confirmaAtualização from "../alertas/Atualizacao.js";
 import confirmaGravação from "../alertas/Gravacao.js";
 import alertaErro from "../alertas/Erro.js";
+import moment from "moment/moment.js";
 
 export default function TabelaCheckin(props) {
 
-    const pesquisacheck = useRef("")
-
-    function passaCodigo() {
-        const dadoscod = pesquisacheck.current.value
-        props.execBaixa(CHECKIN.buscaCOD);
-        props.dadosCOD(dadoscod)
-    }
-
     function darBaixa(checkinmap) {
-        let dataini = new Date(checkinmap.checkin);
+        const dataAtual = moment().format('YYYY-MM-DD');
         const dadosBaixa = {
             id_reserva: checkinmap.id_reserva,
             checkin: checkinmap.checkin,
@@ -31,7 +23,7 @@ export default function TabelaCheckin(props) {
             hospede: checkinmap.hospede
         };
         const dadosHospedagem = {
-            data_ini: dataini.toISOString().split('T')[0],
+            data_ini: dataAtual,
             valor_tot: "0,00",
             h_ativo: "Sim",
             reserva: checkinmap
@@ -70,32 +62,27 @@ export default function TabelaCheckin(props) {
         });
     }
 
-    return (
-        <Container className='mb-5'>
-            <Navbar expand="lg">
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                    </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Busca por Código"
-                            className="me-2"
-                            aria-label="Search"
-                            name="pesquisa"
-                            id="pesquisa"
-                            ref={pesquisacheck}
-                        />
-                        <Button variant="outline-dark" onClick={passaCodigo}>Pesquisar</Button>
-                    </Form>
-                </Navbar.Collapse>
-            </Navbar>
-            <Container className="mt-4 mb-4 d-flex justify-content-center">
-                {props.dadosCheckin.map((reserva) => {
-                    let dataini = new Date(reserva.checkin)
-                    let datafim = new Date(reserva.checkout)
-                    if (reserva.ativo === "Sim") {
+    const listaReservas = props.dadosCheckin
+
+    if (listaReservas.length) {
+        return (
+            <Container className='mb-5'>
+                <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg> Relatórios</Button>
+                <Navbar></Navbar>
+                <Navbar expand="lg">
+                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Collapse id="navbarScroll">
+                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Container className="mt-4 mb-4 d-flex justify-content-center">
+                    {props.dadosCheckin.map((reserva) => {
+                        let dataini = new Date(reserva.checkin)
+                        let datafim = new Date(reserva.checkout)
                         return (
                             <Card
                                 bg={"Secondary".toLowerCase()}
@@ -147,16 +134,29 @@ export default function TabelaCheckin(props) {
                                 </Card.Body>
                             </Card>
                         )
-                    }
-                    else {
-                        return (
-                            <div className="mt-3">
-                            </div>
-                        )
-                    }
-                })}
+                    })}
+                </Container>
             </Container>
-        </Container>
-    );
-
+        );
+    }
+    else {
+        return (
+            <Container className='mb-5'>
+                <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg> Relatórios</Button>
+                <Navbar expand="lg">
+                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Collapse id="navbarScroll">
+                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Container className="mt-4 mb-4 d-flex justify-content-center">
+                    <h3>Ops... Não temos nenhuma reserva por enquanto!</h3>
+                </Container>
+            </Container>
+        );
+    }
 }

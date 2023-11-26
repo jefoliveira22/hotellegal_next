@@ -11,6 +11,7 @@ import FormTDespesa from "@/app/componentes/formularios/TiposDespesa";
 import ipBackend from "@/app/componentes/IPBackend.js";
 import alertaErro from "@/app/componentes/alertas/Erro.js";
 import RodapeLogado from "@/app/componentes/templates/RodapeLogado";
+import RelatorioDespesa from "@/app/componentes/tabelas/RelatorioDespesa";
 
 export default function TelaCadDespesa() {
     
@@ -20,6 +21,7 @@ export default function TelaCadDespesa() {
     const [buscaID, setBuscaID] = useState([]);
     const [busca, setBusca] = useState(false);
     const [tiposDespesa, setTiposDespesa] = useState([]);
+    const [relatorio, setRelatorio] = useState([]);
     
     useEffect (() => {
         if (!busca) {
@@ -110,6 +112,20 @@ export default function TelaCadDespesa() {
         apagarDespesa(despesas);
         setDespesa(DESPESA.listagem);
     }
+
+    function buscarRelatorio(periodo) {
+        fetch(ipBackend + "despesa/periodo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(periodo)
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            setRelatorio(dados);
+        }).catch((erro) => {
+            alertaErro(erro);
+        });
+    }
     
     if (despesa === DESPESA.listagem) {
         return (
@@ -170,6 +186,19 @@ export default function TelaCadDespesa() {
                                     escolheBusca={setBusca}
                                     dados={tiposDespesa}
                                     apagarTDespesa={prepararRemocaoTDespesa}/>
+                <RodapeLogado />
+            </div>
+        );
+    }
+
+    else if (despesa === DESPESA.relatorio) {
+        return (
+            <div>
+                <Menu/>
+                <Cabecalho titulopagina="RELATÓRIO DE DESPESAS"/>
+                    <RelatorioDespesa exibirDespesa={setDespesa}
+                                      dadosRelatorio={relatorio} 
+                                      pesquisar={buscarRelatorio}/>
                 <RodapeLogado />
             </div>
         );
