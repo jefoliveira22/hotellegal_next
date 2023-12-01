@@ -89,9 +89,9 @@ export default function FormCADDespesa(props) {
 
     return (
         <Container className="mb-3 mt-3 text-center">
-            <Row className="mt-2 p-2">
+            <Row>
                 <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
-                    <Row className='mt-2'>
+                    <Row>
                         <Col>
                             <Form.Group>
                                 <Form.Label>Fornecedor</Form.Label>
@@ -185,7 +185,7 @@ export default function FormCADDespesa(props) {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className='mt-4'>
                         <Col>
                             <Form.Group>
                                 <Form.Label>Observações</Form.Label>
@@ -200,17 +200,19 @@ export default function FormCADDespesa(props) {
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Col>
-                    </Row>
-                    <Row>
+                        <Col md={2}>
                         <Form.Group>
-                            <Form.Check className='mt-3'
-                                id='pago'
+                            <Form.Label>Despesa Paga</Form.Label>
+                            <Form.Select
+                                id="pago"
                                 name="pago"
-                                type='checkbox'
-                                label='Despesa paga'
-                                value='Sim'
-                                ref={pago} />
+                                required
+                                ref={pago}>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </Form.Select>
                         </Form.Group>
+                        </Col>
                     </Row>
                     <Button type="submit" variant='outline-primary' className='mt-3 me-2'>Cadastrar</Button>
                     <Button variant="outline-secondary" className="mt-3" onClick={() => { props.exibirDespesa(DESPESA.listagem) }}>Voltar</Button>

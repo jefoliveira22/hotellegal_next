@@ -28,19 +28,20 @@ export default function FormATUDespesa(props) {
             alertaErro(erro);
         });
     }
-    
+
     useEffect(() => {
         if (props.listaDespesas) {
+            const data = props.listaDespesas.data_comp.split("T")
             cod_tipo_despesa.current.value = props.listaDespesas.cod_tipo_despesa
             nome_desp.current.value = props.listaDespesas.nome_desp
             nfe.current.value = props.listaDespesas.nfe
-            fornecedor.current.value = props.listaDespesas.fornecedor
-            data_comp.current.value = props.listaDespesas.data_comp
+            fornecedor.current.value = props.listaDespesas.fornecedor.razao_social
+            data_comp.current.value = data[0]
             valortotal.current.value = props.listaDespesas.valortotal
             obs.current.value = props.listaDespesas.obs
             pago.current.value = props.listaDespesas.pago
         }
-    },[])
+    }, [])
 
     const [formValidado, setFormValidado] = useState(false);
     const cod_tipo_despesa = useRef("");
@@ -58,7 +59,7 @@ export default function FormATUDespesa(props) {
             cod_tipo_despesa: cod_tipo_despesa.current.value,
             nome_desp: nome_desp.current.value,
             nfe: nfe.current.value,
-            fornecedor: fornecedor.current.value,
+            fornecedor: props.listaDespesas.fornecedor.fornecedor_id,
             data_comp: data_comp.current.value,
             valortotal: valortotal.current.value,
             obs: obs.current.value,
@@ -185,7 +186,7 @@ export default function FormATUDespesa(props) {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className='mt-2'>
                         <Col>
                             <Form.Group>
                                 <Form.Label>Observações</Form.Label>
@@ -200,19 +201,21 @@ export default function FormATUDespesa(props) {
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Col>
-                    </Row>
-                    <Row>
+                        <Col md={2}>
                         <Form.Group>
-                            <Form.Check className='mt-3'
-                                id='pago'
+                            <Form.Label>Despesa Paga</Form.Label>
+                            <Form.Select
+                                id="pago"
                                 name="pago"
-                                type='checkbox'
-                                label='Despesa paga'
-                                checked='Sim'
-                                ref={pago} />
+                                required
+                                ref={pago}>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </Form.Select>
                         </Form.Group>
+                        </Col>
                     </Row>
-                    <Button type="submit" variant='outline-primary' className='mt-3 me-2'>Cadastrar</Button>
+                    <Button type="submit" variant='outline-primary' className='mt-3 me-2'>Atualizar</Button>
                     <Button variant="outline-secondary" className='mt-3' onClick={() => { props.exibirDespesa(DESPESA.listagem) }}>Voltar</Button>
                 </Form>
             </Row>
