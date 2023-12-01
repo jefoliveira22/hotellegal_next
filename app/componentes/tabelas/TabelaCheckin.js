@@ -26,7 +26,8 @@ export default function TabelaCheckin(props) {
             data_ini: dataAtual,
             valor_tot: "0,00",
             h_ativo: "Sim",
-            reserva: checkinmap
+            reserva: checkinmap,
+            acomodacao: checkinmap.acomodacao
         }
         lancarHospedagem(dadosHospedagem);
         props.execBaixa(CHECKIN.atualiza);
@@ -66,17 +67,16 @@ export default function TabelaCheckin(props) {
 
     if (listaReservas.length) {
         return (
-            <Container className='mb-5'>
-                <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg> Relatórios</Button>
-                <Navbar></Navbar>
+            <Container>
                 <Navbar expand="lg">
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
                         </Nav>
+                        <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg> Relatórios</Button>
                     </Navbar.Collapse>
                 </Navbar>
                 <Container className="mt-4 mb-4 d-flex justify-content-center">
@@ -141,16 +141,15 @@ export default function TabelaCheckin(props) {
     }
     else {
         return (
-            <Container className='mb-5'>
-                <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg> Relatórios</Button>
+            <Container>
                 <Navbar expand="lg">
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
-                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                        </Nav>
+                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
+                        <Button variant="outline-success" className="mt-3" onClick={() => { props.execBaixa(CHECKIN.buscaCOD) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg> Relatórios</Button>
                     </Navbar.Collapse>
                 </Navbar>
                 <Container className="mt-4 mb-4 d-flex justify-content-center">

@@ -6,6 +6,7 @@ import LOGIN from '../estados/useLogin.js';
 import alertaErro from '../alertas/Erro.js';
 import ipBackend from '../IPBackend.js';
 import PERMISSAO from '../estados/usePermissao.js';
+import alertaErroLogin from '../alertas/Mensagem.js';
 
 
 export default function HomeSection(props) {
@@ -28,32 +29,33 @@ export default function HomeSection(props) {
                 if (dados[0].usuario.email === login.current.value && dados[0].senha === senha.current.value) {
                     if (dados[0].usuario.tipo_usuario === "gerente") {
                         document.cookie = "hotelLegal=authGerente";
-                        document.cookie = "username=" + dados[0].usuario.nome;
+                        localStorage.setItem("username", dados[0].usuario.nome);
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.gerente);
                     }
                     else if (dados[0].usuario.tipo_usuario === "atendente") {
                         document.cookie = "hotelLegal=authAtendente";
-                        document.cookie = "username=" + dados[0].usuario.nome;
+                        localStorage.setItem("username", dados[0].usuario.nome);
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.atendente);
                     }
                     else if (dados[0].usuario.tipo_usuario === "auxiliar") {
                         document.cookie = "hotelLegal=authAuxiliar";
-                        document.cookie = "username=" + dados[0].usuario.nome;
+                        localStorage.setItem("username", dados[0].usuario.nome);
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.auxiliar);
                     }
                     else if (dados[0].usuario.tipo_usuario === "hospede") {
                         document.cookie = "hotelLegal=authHospede";
-                        document.cookie = "username=" + dados[0].usuario.nome;
+                        localStorage.setItem("username", dados[0].usuario.nome);
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.hospede);
                     }
                 }
                 else {
                     props.estadoLogin(LOGIN.deslogado);
-                    props.estadoPermissao(PERMISSAO.noaccess)
+                    props.estadoPermissao(PERMISSAO.noaccess);
+                    alertaErroLogin();
                 }
             }).catch((erro) => {
                 alertaErro(erro);

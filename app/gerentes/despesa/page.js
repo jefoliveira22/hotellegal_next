@@ -113,6 +113,11 @@ export default function TelaCadDespesa() {
         setDespesa(DESPESA.listagem);
     }
 
+    function buscarTipoDespesa() {
+        buscarTiposDespesas();
+        setDespesa(DESPESA.listatipodespesa);
+    }
+
     function buscarRelatorio(periodo) {
         fetch(ipBackend + "despesa/periodo", {
             method: "POST",
@@ -137,7 +142,8 @@ export default function TelaCadDespesa() {
                     editarDespesas={prepararAtualizacao}
                     apagarDespesas={prepararRemocao}
                     dadosID={setBuscaID}
-                    escolheBusca={setBusca} />
+                    escolheBusca={setBusca}
+                    tipoDespesaList={buscarTipoDespesa} />
                 <RodapeLogado />
             </div>
         );
@@ -177,7 +183,6 @@ export default function TelaCadDespesa() {
     }
 
     else if (despesa === DESPESA.listatipodespesa) {
-        buscarTiposDespesas();
         return (
             <div>
                 <Menu/>

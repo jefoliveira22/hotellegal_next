@@ -81,7 +81,8 @@ export default function FormCheckout(props) {
                 valor_tot: valorfinal,
                 h_ativo: "Não",
                 reserva: {
-                    id_reserva: hospedagem.reserva.id_reserva
+                    id_reserva: hospedagem.reserva.id_reserva,
+                    acomodacao: hospedagem.reserva.acomodacao
                 },
             })
         }).then((resposta) => {

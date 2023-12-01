@@ -162,7 +162,7 @@ export default function FormReserva(props) {
                             <Form.Label>Quarto</Form.Label>
                             <InputGroup hasValidation>
                                 <CaixaSelecao
-                                    enderecoFonteDados="http://localhost:4000/quarto"
+                                    enderecoFonteDados="http://localhost:4000/quarto/vazio"
                                     campoChave="idquarto"
                                     campoExibicao="nomequarto"
                                     funcaoSelecao={setValorSelecionado}

@@ -12,14 +12,15 @@ export default function TabelaHospedagem(props) {
     if (listaHospedagem.length) {
         return (
             <Container>
-                <Button variant="outline-success" className="mt-3" onClick={() => { props.mudaCheckout(HOSPEDAGEM.consultas) }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg> Relatórios</Button>
+
                 <Navbar>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
-                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
+                        <Nav className="me-auto my-2 my-lg-0 align-items-end" style={{ maxHeight: '100px' }} navbarScroll></Nav>
+                        <Button variant="outline-success" className="mt-2" onClick={() => { props.mudaCheckout(HOSPEDAGEM.consultas) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg> Relatórios</Button>
                     </Navbar.Collapse>
                 </Navbar>
                 <Container className="mt-3 mb-4 d-flex justify-content-center">
@@ -64,14 +65,14 @@ export default function TabelaHospedagem(props) {
     else {
         return (
             <Container>
-                <Button variant="outline-success" className="mt-3" onClick={() => { props.mudaCheckout(HOSPEDAGEM.consultas) }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg> Relatórios</Button>
                 <Navbar>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
+                        <Button variant="outline-success" className="mt-3" onClick={() => { props.mudaCheckout(HOSPEDAGEM.consultas) }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg> Relatórios</Button>
                     </Navbar.Collapse>
                 </Navbar>
                 <Container className="mt-4 mb-4 d-flex justify-content-center">
