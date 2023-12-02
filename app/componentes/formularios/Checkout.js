@@ -5,12 +5,17 @@ import alertaErro from '../alertas/Erro.js';
 import confirmaAtualização from '../alertas/Atualizacao.js';
 import HOSPEDAGEM from '../estados/useHospedagem.js';
 import moment from 'moment';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 export default function FormCheckout(props) {
 
     const [dadosConsumo, setDadosConsumo] = useState([]);
     const [dadosServico, setDadosServico] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         const id = props.dadosCheckout.id_hospedagem;
@@ -187,6 +192,18 @@ export default function FormCheckout(props) {
                                     <Row className='text-center'>
                                         <Button className='me-2' variant="outline-success" onClick={encerrarHospedagem}>Pagar</Button>
                                         <Button variant='outline-secondary' className='mt-2' onClick={() => { props.voltar(HOSPEDAGEM.ativa) }} >Voltar</Button>
+                                        <Button variant="outline-info" className='mt-2' onClick={handleShow}>Help</Button>
+                                        <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                                            <Offcanvas.Header closeButton>
+                                                <Offcanvas.Title>Check-out e Pagamento</Offcanvas.Title>
+                                            </Offcanvas.Header>
+                                            <Offcanvas.Body>
+                                                - Aqui é onde se finaliza a hospedagem <br />
+                                                - É possível consultar as informações do hospede e valores detalhados do hospede. <br />
+                                                - Ao lado, existe as opções de pagamento. <br />
+                                                - Ao clicar em pagar a hospedagem e finalizada, e o quarto volta a ficar disponível.
+                                            </Offcanvas.Body>
+                                        </Offcanvas>
                                     </Row>
                                 </Form>
                             </Card.Text>

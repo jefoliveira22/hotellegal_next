@@ -2,9 +2,15 @@ import { Container, Table, Button } from "react-bootstrap";
 import SERVICO from "../estados/useServico.js";
 import MODOBUCASERV from "../estados/useModoBuscaServico.js";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function TabelaServico(props) {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function passaNome() {
         const dadosnome = pesquisa.current.value
@@ -33,6 +39,18 @@ export default function TabelaServico(props) {
                                 <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z" />
                             </svg> Voltar
                         </Button>
+                        <Button variant="outline-info" onClick={handleShow}>Help</Button>
+                        <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Lista de Serviços de Quarto</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                - Esta tela oferece uma listagem de serviços de quarto cadastrados, disponíveis para consumo. <br />
+                                - O botão "Adicionar Serviço", permite adicionar novos serviços para consumo. <br />
+                                - Na listagem, é possível alterar preço, ou qualquer informação do serviço, além de remove-lo, utilizando os botões da coluna "Ações". <br />
+                                - O campo de busca permite localizar serviços pelo nome.
+                            </Offcanvas.Body>
+                        </Offcanvas>
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control

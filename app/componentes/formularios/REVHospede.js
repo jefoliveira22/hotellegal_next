@@ -5,12 +5,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import RESERVA from '../estados/useReserva.js';
 import ipBackend from '../IPBackend.js';
 import CaixaSelecao from '../buscas/CaixaSelecao.js';
 import BarraBuscaREV from '../buscas/barrabuscaREV.js';
 import confirmaGravação from '../alertas/Gravacao.js';
 import alertaErro from '../alertas/Erro.js';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+
 
 export default function FormREVHospede(props) {
 
@@ -45,6 +46,10 @@ export default function FormREVHospede(props) {
     const [valorSelecionado, setValorSelecionado] = useState({});
     const [dados, setDados] = useState([]);
     const [hospedeSelecionado, setHospedeSelecionado] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const checkin = useRef("");
     const checkout = useRef("");
@@ -101,7 +106,9 @@ export default function FormREVHospede(props) {
 
     return (
         <Container className="mb-3 mt-3 text-center">
-            <Row className='text-center'><h3>{props.subtitulo}</h3></Row>
+            <Row className='text-center'>
+                <h3>{props.subtitulo}</h3>
+            </Row>
             <Row className="mt-3 mb-3 p-2">
                 <Form noValidate validated={formValidado} onSubmit={manipularSubmissao}>
                     <Row className='mt-2 mb-2'>
@@ -114,8 +121,8 @@ export default function FormREVHospede(props) {
                                         campoChave={"cpf"}
                                         campoBusca={"nome"}
                                         funcaoSelecao={setHospedeSelecionado}
-                                        valor={""} 
-                                        required/>
+                                        valor={""}
+                                        required />
                                 </InputGroup>
                                 <Form.Control.Feedback type="invalid">
                                     Informe o CPF do cliente
@@ -213,7 +220,22 @@ export default function FormREVHospede(props) {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Button type="submit" className='mt-3' variant='outline-primary'>{"Cadastrar"}</Button>
+                    <Button type="submit" className='mt-3 me-2' variant='outline-primary'>{"Cadastrar"}</Button>
+                    <Button variant="outline-info" className='mt-3' onClick={handleShow}>Help</Button>
+                    <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title>Efetuar uma reserva - Preencha os campos para efetuar uma reserva.</Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body>
+                            - Em "Hospede", localize o cadastro do hospede digitando seu nome. <br/>
+                            - Check-in, coloque a data que o hospede entrará no hotel. <br/> 
+                            - Check-out, coloque a data prevista para a saída do hospede. <br/>
+                            - Acompanhantes, coloque pessoas maiores de idade que estão acompanhando o hospede. <br/>
+                            - Menores de idade, coloque pessoas menores de 18 anos. <br/>
+                            - Quarto, selecione o quarto desejado. <br/>
+                            - A opção cancelamento free, permite que o hospede cancele a reserva sem custos.
+                        </Offcanvas.Body>
+                    </Offcanvas>
                 </Form>
             </Row>
         </Container>

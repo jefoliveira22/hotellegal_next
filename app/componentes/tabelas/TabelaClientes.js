@@ -5,37 +5,42 @@ import { useRef, useState, useEffect } from "react";
 import USUARIOS from "../estados/useUsuarios";
 import ipBackend from "../IPBackend";
 import CLIENTES from "../estados/useClientes";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function TabelaClientes(props) {
 
     const [listaDados, setListaDados] = useState([]);
     const [modoBusca, setModoBusca] = useState(false);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         if (modoBusca) {
             fetch(ipBackend + 'cliente/' + pesquisa.current.value,
-            {
-                method: "GET"
-            }).then((resposta) => {
-                return resposta.json()
-            }).then((dados) => {
-                setListaDados(dados)
-            }).catch((erro) => {
-                alertaErro(erro);
-            });
+                {
+                    method: "GET"
+                }).then((resposta) => {
+                    return resposta.json()
+                }).then((dados) => {
+                    setListaDados(dados)
+                }).catch((erro) => {
+                    alertaErro(erro);
+                });
         }
         else {
             fetch(ipBackend + 'cliente',
-            {
-                method: "GET"
-            }).then((resposta) => {
-                return resposta.json()
-            }).then((dados) => {
-                setListaDados(dados)
-            }).catch((erro) => {
-                alertaErro(erro);
-            });
-        }   
+                {
+                    method: "GET"
+                }).then((resposta) => {
+                    return resposta.json()
+                }).then((dados) => {
+                    setListaDados(dados)
+                }).catch((erro) => {
+                    alertaErro(erro);
+                });
+        }
     })
 
     function passaCPF() {
@@ -43,21 +48,6 @@ export default function TabelaClientes(props) {
     }
 
     const pesquisa = useRef("")
-
-    /*function BotãoEstilo(variavel) {
-        if (variavel === "Gerente") {
-            return <Button size="sm" variant="danger">Gerente</Button>
-        }
-        else if (variavel === "Auxiliar") {
-            return <Button size="sm" variant="info">Auxiliar</Button>
-        }
-        else if (variavel === "Atendente") {
-            return <Button size="sm" variant="warning">Atendente</Button>
-        }
-        else if (variavel === "Camareiro") {
-            return <Button size="sm" variant="primary">Camareiro</Button>
-        }
-    }*/
 
     return (
         <Container className='mb-5'>
@@ -71,11 +61,23 @@ export default function TabelaClientes(props) {
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                             </svg> Adicionar
                         </Button>
-                        <Button variant="outline-secondary" onClick={() => { props.mudaTela(USUARIOS.telahome) }}>
+                        <Button variant="outline-secondary" onClick={() => { props.mudaTela(USUARIOS.telahome) }} className="me-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-square" viewBox="0 0 16 16">
                                 <path d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
                             </svg> Voltar
                         </Button>
+                        <Button variant="outline-info" onClick={handleShow}>Help</Button>
+                        <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Lista de Clientes</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                - Esta tela oferece uma listagem dos clientes cadastrados no sistema. <br />
+                                - O botão "Adicionar", permite adicionar um novo cliente ao sistema. <br />
+                                - Na listagem, é possível alterar os dados, além de remove-lo, utilizando os botões da coluna "Ações". <br />
+                                - O campo de busca permite localizar um cliente pelo seu nome.
+                            </Offcanvas.Body>
+                        </Offcanvas>
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control

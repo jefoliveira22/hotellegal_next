@@ -13,6 +13,7 @@ import TabelaItensServico from '../tabelas/TabelaItensServico.js';
 import MODOBUCASERV from '../estados/useModoBuscaServico.js';
 import confirmaGravação from '../alertas/Gravacao.js';
 import alertaErro from '../alertas/Erro.js';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function FormServico(props) {
 
@@ -30,6 +31,10 @@ export default function FormServico(props) {
         valor: 0,
         listaServicos: []
     });
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         let listaHospedagem = [];
@@ -259,7 +264,20 @@ export default function FormServico(props) {
                     <hr></hr>
                 </Row>
                 <Button type="submit" className='mt-3 me-2' variant='outline-primary'>Registrar Serviço</Button>
-                <Button variant="outline-secondary" className='mt-3' onClick={() => { props.exibirServico(SERVICO.listagem) }}>Voltar</Button>
+                <Button variant="outline-secondary" className='mt-3  me-2' onClick={() => { props.exibirServico(SERVICO.listagem) }}>Voltar</Button>
+                <Button variant="outline-info" className='mt-3' onClick={handleShow}>Help</Button>
+                <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Cadastrar Consumo de Serviço</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        - Localize o hospede que está fazendo o consumo no hotel. Só é exibido, hospedes que estão com hospedagem ativa. <br />
+                        - Preencha os dados: "Data do consumo" e "Desconto" em R$. <br />
+                        - Localize o item que o hospede consumiu, informe a quantidade e adicione clicando no botão "Add Item". <br />
+                        - Se não localizar o serviço em "Selecionar o Serviço", volte a tela, vá em "Listar Serviços" e adicione o mesmo. <br />
+                        - Após adicionar os itens consumidos, é só registrar o consumo, clicando no botão "Registrar Serviço".  <br />
+                    </Offcanvas.Body>
+                </Offcanvas>
             </Form>
         </Container>
     );

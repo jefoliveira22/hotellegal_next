@@ -1,11 +1,17 @@
 import { Container, Table, Button } from "react-bootstrap";
 import SERVICO from "../estados/useServico.js";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import MODOBUCASERV from "../estados/useModoBuscaServico.js";
 import { Accordion } from "react-bootstrap";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function TabelaConsumoServ(props) {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function passaNome() {
         const dadosnome = pesquisa.current.value
@@ -39,6 +45,19 @@ export default function TabelaConsumoServ(props) {
                                 <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                             </svg> Listar Serviços
                         </Button>
+                        <Button variant="outline-info" onClick={handleShow}>Help</Button>
+                        <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Lista de Serviços</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                - Esta tela oferece uma listagem de serviços consumidos pelos hospedes. <br />
+                                - O botão "Adicionar Consumos", permite lançar um serviço que um hospede solicitou. <br />
+                                - O botão "Listar Serviços", permite visualizar os serviços disponíveis no hotel, e adicionar outros. <br />
+                                - O campo de busca permite localizar um serviço consumido através do nome do hospede. <br/>
+                                - Ao clicar em um item da lista, é possível visualizar o que o hospede consumiu naquele registro, e o total, além de ser possível remover o registro.
+                            </Offcanvas.Body>
+                        </Offcanvas>
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control

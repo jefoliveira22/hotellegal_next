@@ -1,9 +1,15 @@
 import { Container, Table, Button } from "react-bootstrap";
 import QUARTO from "../estados/useQuarto.js";
 import { Form, Navbar, Nav } from "react-bootstrap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function TabelaQuartos(props) {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function passaID() {
         const dadosid = pesquisa.current.value
@@ -19,12 +25,24 @@ export default function TabelaQuartos(props) {
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                        <Button variant="outline-success" onClick={() => { props.exibirQuarto(QUARTO.cadastro) }}>
+                        <Button className="me-2" variant="outline-success" onClick={() => { props.exibirQuarto(QUARTO.cadastro) }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                             </svg> Adicionar
                         </Button>
+                        <Button variant="outline-info" onClick={handleShow}>Help</Button>
+                        <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Lista de Quartos</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                - Esta tela oferece uma listagem de quartos cadastrados no hotel. <br />
+                                - O botão "Adicionar", permite adicionar uma nova acomodação para hospedagem. <br />
+                                - Na listagem, é possível alterar os dados, além de remove-lo, utilizando os botões da coluna "Ações". <br />
+                                - O campo de busca permite localizar um quarto pelo seu nome.
+                            </Offcanvas.Body>
+                        </Offcanvas>
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control

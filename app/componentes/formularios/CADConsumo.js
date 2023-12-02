@@ -13,6 +13,7 @@ import TabelaItensConsumo from '../tabelas/TabelaItensConsumo.js';
 import MODOBUSCACONS from '../estados/useModoBuscaConsumo.js';
 import confirmaGravação from '../alertas/Gravacao.js';
 import alertaErro from '../alertas/Erro.js';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function FormCADConsumo(props) {
 
@@ -30,6 +31,10 @@ export default function FormCADConsumo(props) {
         valor: 0,
         listaProdutos: []
     });
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         let listaHospedagem = [];
@@ -256,7 +261,20 @@ export default function FormCADConsumo(props) {
                     <hr></hr>
                 </Row>
                 <Button type="submit" className='mt-3 me-2' variant='outline-primary'>Registrar Consumo</Button>
-                <Button variant="outline-secondary" className='mt-3' onClick={() => { props.exibirConsumo(CONSUMO.listagem) }}>Voltar</Button>
+                <Button variant="outline-secondary" className='mt-3 me-2' onClick={() => { props.exibirConsumo(CONSUMO.listagem) }}>Voltar</Button>
+                <Button variant="outline-info" className='mt-3' onClick={handleShow}>Help</Button>
+                <Offcanvas show={show} onHide={handleClose} placement='bottom'>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Cadastrar Consumo</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        - Localize o hospede que está fazendo o consumo no hotel. Só é exibido, hospedes que estão com hospedagem ativa. <br />
+                        - Preencha os dados: "Data do consumo" e "Desconto" em R$. <br />
+                        - Localize o item que o hospede consumiu, informe a quantidade e adicione clicando no botão "Add Item". <br />
+                        - Se não localizar o produto em "Selecionar o Produto", volte a tela, vá em "Listar Produtos" e adicione o mesmo. <br />
+                        - Após adicionar os itens consumidos, é só registrar o consumo, clicando no botão "Registrar Consumo".  <br />
+                    </Offcanvas.Body>
+                </Offcanvas>
             </Form>
         </Container>
     )
