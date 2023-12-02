@@ -7,6 +7,7 @@ import alertaErro from '../alertas/Erro.js';
 import ipBackend from '../IPBackend.js';
 import PERMISSAO from '../estados/usePermissao.js';
 import alertaErroLogin from '../alertas/Mensagem.js';
+import { Accordion } from 'react-bootstrap';
 
 
 export default function HomeSection(props) {
@@ -16,17 +17,19 @@ export default function HomeSection(props) {
         setIndex(selectedIndex);
     };
 
-    const login = useRef("");
-    const senha = useRef("");
+    const loginFunc = useRef("");
+    const senhaFunc = useRef("");
+    const loginCli = useRef("");
+    const senhaCli = useRef("");
 
-    function validarDados() {
-        fetch(ipBackend + 'funcionario/login/' + login.current.value,
+    function validarDadosFuncionario() {
+        fetch(ipBackend + 'funcionario/login/' + loginFunc.current.value,
             {
                 method: "GET"
             }).then((resposta) => {
                 return resposta.json()
             }).then((dados) => {
-                if (dados[0].usuario.email === login.current.value && dados[0].senha === senha.current.value) {
+                if (dados[0].usuario.email === loginFunc.current.value && dados[0].senha === senhaFunc.current.value) {
                     if (dados[0].usuario.tipo_usuario === "gerente") {
                         document.cookie = "hotelLegal=authGerente";
                         localStorage.setItem("username", dados[0].usuario.nome);
@@ -45,7 +48,26 @@ export default function HomeSection(props) {
                         props.estadoLogin(LOGIN.logado);
                         props.estadoPermissao(PERMISSAO.auxiliar);
                     }
-                    else if (dados[0].usuario.tipo_usuario === "hospede") {
+                }
+                else {
+                    props.estadoLogin(LOGIN.deslogado);
+                    props.estadoPermissao(PERMISSAO.noaccess);
+                    alertaErroLogin();
+                }
+            }).catch((erro) => {
+                alertaErro(erro);
+            });
+    }
+
+    function validarDadosCliente() {
+        fetch(ipBackend + 'cliente/login/' + loginCli.current.value,
+            {
+                method: "GET"
+            }).then((resposta) => {
+                return resposta.json()
+            }).then((dados) => {
+                if (dados[0].usuario.email === loginCli.current.value && dados[0].senha === senhaCli.current.value) {
+                    if (dados[0].usuario.tipo_usuario === "hospede") {
                         document.cookie = "hotelLegal=authHospede";
                         localStorage.setItem("username", dados[0].usuario.nome);
                         props.estadoLogin(LOGIN.logado);
@@ -61,6 +83,7 @@ export default function HomeSection(props) {
                 alertaErro(erro);
             });
     }
+
     return (
         <Container className='mt-3 mb-3 d-flex align-itens-center'>
             <Container className='mh-100'>
@@ -103,28 +126,62 @@ export default function HomeSection(props) {
             <Container className='w-50'>
                 <Card className="text-center h-100">
                     <Container className="position-absolute top-50 start-50 translate-middle">
-                        <Card.Title className="mt-4 mb-1">Faça o login</Card.Title>
+                        <Card.Title className="mt-4 mb-1">OPÇÕES DE LOGIN</Card.Title>
                         <Card.Body>
-                            <Form.Group className="mb-3 d-flex align-items-center">
-                                <Form.Label className="m-auto me-1"><b>Usuário</b></Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    id="login"
-                                    name="login"
-                                    ref={login}
-                                    placeholder='Informe o e-mail'
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3 d-flex align-items-center">
-                                <Form.Label className="m-auto me-3"><b>Senha</b></Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="senha"
-                                    name="senha"
-                                    ref={senha}
-                                />
-                            </Form.Group>
-                            <Button onClick={validarDados} className='mt-3 me-2' variant='outline-primary'>Login</Button>
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>SOU FUNCIONÁRIO</Accordion.Header>
+                                    <Accordion.Body>
+                                        <Form.Group className="mb-3 d-flex align-items-center">
+                                            <Form.Label className="m-auto me-1"><b>Usuário</b></Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                id="loginFunc"
+                                                name="loginFunc"
+                                                ref={loginFunc}
+                                                placeholder='Informe o e-mail'
+                                            />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 d-flex align-items-center">
+                                            <Form.Label className="m-auto me-3"><b>Senha</b></Form.Label>
+                                            <Form.Control
+                                                type="password"
+                                                id="senhaFunc"
+                                                name="senhaFunc"
+                                                ref={senhaFunc}
+                                            />
+                                        </Form.Group>
+                                        <Button onClick={validarDadosFuncionario} className='mt-2 me-2' variant='outline-primary'>Login</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>SOU CLIENTE</Accordion.Header>
+                                    <Accordion.Body>
+                                        <Form.Group className="mb-3 d-flex align-items-center">
+                                            <Form.Label className="m-auto me-1"><b>Usuário</b></Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                id="loginCli"
+                                                name="loginCli"
+                                                ref={loginCli}
+                                                placeholder='Informe o e-mail'
+                                            />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 d-flex align-items-center">
+                                            <Form.Label className="m-auto me-3"><b>Senha</b></Form.Label>
+                                            <Form.Control
+                                                type="password"
+                                                id="senhaCli"
+                                                name="senhaCli"
+                                                ref={senhaCli}
+                                            />
+                                        </Form.Group>
+                                        <Button onClick={validarDadosCliente} className='mt-2 me-2' variant='outline-primary'>Login</Button>
+                                        <h6 className='mt-3'>NÃO TEM USUÁRIO DE ACESSO?</h6>
+                                        <Button onClick={() => {props.estadoLogin(LOGIN.cadastrar)}} variant='outline-success'>Cadastrar</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
                         </Card.Body>
                     </Container>
                 </Card >

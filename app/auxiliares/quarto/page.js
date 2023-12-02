@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import Cabecalho from "@/app/componentes/templates/Cabecalho.js";
-import Menu from "@/app/componentes/templates/Menu.js";
 import TabelaQuartos from "@/app/componentes/tabelas/TabelaQuarto.js";
 import QUARTO from "@/app/componentes/estados/useQuarto.js";
 import ipBackend from "@/app/componentes/IPBackend.js";

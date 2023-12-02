@@ -16,7 +16,7 @@ export default function TelaCadReserva() {
     const [listaReservas, setlistaReservas] = useState([]);
 
     function consultarUltimoReg() {
-        fetch(ipBackend + 'reserva/ultimo/',
+        fetch(ipBackend + 'reserva/req2/ultimo',
             {method: "GET"
             }).then((resposta) => {
                 return resposta.json()
@@ -27,12 +27,17 @@ export default function TelaCadReserva() {
         });
     }
 
+    function gerarCupom() {
+        consultarUltimoReg();
+        setReserva(RESERVA.cupom);
+    }
+
     if (reserva === RESERVA.hospede) {
         return (
             <div>
                 <MenuHospede />
                 <Cabecalho titulopagina="RESERVAR QUARTO"/>
-                    <FormREVHospede subtitulo="Informe os dados abaixo" botao="Avançar" exibirReserva={setReserva}/>
+                    <FormREVHospede subtitulo="Informe os dados abaixo" botao="Avançar" exibirReserva={setReserva} geraCupom={gerarCupom}/>
                 <RodapeLogado />
             </div>
         );
@@ -51,9 +56,6 @@ export default function TelaCadReserva() {
     }
 
     else if (reserva === RESERVA.cupom) {
-        
-        consultarUltimoReg();
-
         return (
             <div>
                 <MenuHospede />
