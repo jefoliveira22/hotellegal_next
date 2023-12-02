@@ -51,8 +51,8 @@ export default function TabelaConsumos(props) {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 - Aqui é possível consultar os consumos feitos pelos hospedes. <br />
-                                - O botão Adicionar Consumo, permite lançar um consumo de um hospede. <br />
-                                - O botão Listar Produtos, permite visualizar os produtos disponíveis à venda no hotel, e adicionar outros. <br />
+                                - O botão "Adicionar Consumo", permite lançar um consumo de um hospede. <br />
+                                - O botão "Listar Produtos", permite visualizar os produtos disponíveis à venda no hotel, e adicionar outros. <br />
                                 - O campo de busca permite localizar um consumo através do nome do hospede. <br/>
                                 - Ao clicar em um item da lista, é possível visualizar o que o hospede consumiu naquele registro, e o total, além de ser possível remover o registro.
                             </Offcanvas.Body>

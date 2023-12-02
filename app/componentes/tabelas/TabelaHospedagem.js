@@ -36,9 +36,9 @@ export default function TabelaHospedagem(props) {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 - Esta tela oferece uma listagem de hospedagens ativas, ou seja, onde o cliente está hospedado. <br />
-                                - Ao clicar em Check-out, é exibido um resumo da hospedagem, contendo alguns dados do hospede, valores da hospedagem, consumo e serviços e o pagamento. <br />
+                                - Ao clicar em "Check-out", é exibido um resumo da hospedagem, contendo alguns dados do hospede, valores da hospedagem, consumo e serviços e o pagamento. <br />
                                 - Após conclusão do pagamento, a hospedagem sai desta lista. <br />
-                                - O botão relatórios permite localizar hospedagens, selecionando um período ou hospede específico.
+                                - O botão "Relatórios" permite localizar hospedagens, selecionando um período ou hospede específico.
                             </Offcanvas.Body>
                         </Offcanvas>
                     </Navbar.Collapse>

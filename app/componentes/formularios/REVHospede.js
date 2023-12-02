@@ -228,12 +228,12 @@ export default function FormREVHospede(props) {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             - Em "Hospede", localize o cadastro do hospede digitando seu nome. <br/>
-                            - Check-in, coloque a data que o hospede entrará no hotel. <br/> 
-                            - Check-out, coloque a data prevista para a saída do hospede. <br/>
-                            - Acompanhantes, coloque pessoas maiores de idade que estão acompanhando o hospede. <br/>
-                            - Menores de idade, coloque pessoas menores de 18 anos. <br/>
-                            - Quarto, selecione o quarto desejado. <br/>
-                            - A opção cancelamento free, permite que o hospede cancele a reserva sem custos.
+                            - "Check-in", coloque a data que o hospede entrará no hotel. <br/> 
+                            - "Check-out", coloque a data prevista para a saída do hospede. <br/>
+                            - "Acompanhantes", coloque pessoas maiores de idade que estão acompanhando o hospede. <br/>
+                            - "Menores de idade", coloque pessoas menores de 18 anos. <br/>
+                            - "Quarto", selecione o quarto desejado. <br/>
+                            - A opção "Cancelamento Free", permite que o hospede cancele a reserva sem custos.
                         </Offcanvas.Body>
                     </Offcanvas>
                 </Form>

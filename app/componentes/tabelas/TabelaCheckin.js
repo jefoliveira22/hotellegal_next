@@ -91,8 +91,8 @@ export default function TabelaCheckin(props) {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 - Esta tela oferece uma listagem de reservas disponíveis para check-in. <br />
-                                - Ao clicar em Check-in, a reserva se torna uma hospedagem, e o hospede entra no hotel. <br />
-                                - O botão relatórios permite localizar reservas, selecionando um período ou hospede específico.
+                                - Ao clicar em "Check-in", a reserva se torna uma hospedagem, e o hospede entra no hotel. <br />
+                                - O botão "Relatórios" permite localizar reservas, selecionando um período específico.
                             </Offcanvas.Body>
                         </Offcanvas>
                     </Navbar.Collapse>

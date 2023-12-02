@@ -201,7 +201,7 @@ export default function FormCheckout(props) {
                                                 - Aqui é onde se finaliza a hospedagem <br />
                                                 - É possível consultar as informações do hospede e valores detalhados do hospede. <br />
                                                 - Ao lado, existe as opções de pagamento. <br />
-                                                - Ao clicar em pagar a hospedagem e finalizada, e o quarto volta a ficar disponível.
+                                                - Ao clicar em "Pagar" a hospedagem e finalizada, e o quarto volta a ficar disponível.
                                             </Offcanvas.Body>
                                         </Offcanvas>
                                     </Row>
