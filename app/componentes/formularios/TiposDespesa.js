@@ -49,7 +49,7 @@ export default function FormTDespesa(props) {
             const novatdespesa = validarDados();
             if (novatdespesa) {
                 cadastrarTDespesa(novatdespesa);
-                props.exibirDespesa(DESPESA.listatipodespesa);
+                props.exibirDespesa(DESPESA.listagem);
             }
         }
         evento.preventDefault();
